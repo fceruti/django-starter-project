@@ -12,6 +12,7 @@ shell = "python manage.py shell"
 [dev-packages]
 flake8 = "*"
 django-debug-toolbar = "*"
+isort = "*"
 
 [packages]
 django = "==2.2.*"

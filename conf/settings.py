@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Third party
+    'webpack_loader',
 
     # Local
     'apps.misc',
@@ -116,6 +117,20 @@ STATICFILES_DIRS = (
     ('bundles', root_path('assets/bundles')),
     ('img', root_path('assets/img')),
 )
+
+webpack_stats_filename = 'webpack-bundle.%s.json' % ENV
+stats_file = os.path.join(root_path('assets'), webpack_stats_filename)
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': 'bundles/',  # must end with slash
+        'STATS_FILE': stats_file,
+        'POLL_INTERVAL': 0.1,
+        'TIMEOUT': None,
+        'IGNORE': ['.+\.hot-update.js', '.+\.map']
+    }
+}
 
 # -----------------------------------------------------------------------------
 # Django Debug Toolbar

@@ -17,6 +17,7 @@ django-debug-toolbar = "*"
 django = "==2.2.*"
 django-environ = "*"
 psycopg2-binary = "*"
+django-webpack-loader = "*"
 
 [requires]
 python_version = "3.7"

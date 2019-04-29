@@ -5,6 +5,7 @@ verify_ssl = true
 
 [scripts]
 server = "python manage.py runserver"
+tests = "pytest"
 migrate = "python manage.py migrate"
 makemigrations = "python manage.py makemigrations"
 shell = "python manage.py shell"
@@ -13,6 +14,8 @@ shell = "python manage.py shell"
 flake8 = "*"
 django-debug-toolbar = "*"
 isort = "*"
+pytest = "*"
+pytest-django = "*"
 
 [packages]
 django = "==2.2.*"

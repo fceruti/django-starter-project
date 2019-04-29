@@ -8,6 +8,7 @@ Make sure you have pipenv installed in your virtual environment. You have the fo
 Command | Shortcut for
 --- | ---
 `pipenv run server` | `pipenv run python manage.py runserver_plus`
+`pipenv run tests` | `pipenv run pytest`
 `pipenv run shell` | `pipenv run python manage.py shell_plus`
 `pipenv run makemigrations` | `pipenv run python manage.py makemigrations`
 `pipenv run migrate` | `pipenv run python manage.py migrate`

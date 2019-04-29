@@ -3,6 +3,14 @@
 Starting point for all django projects.
 
 ### Running the project
+Make sure you have pipenv installed in your virtual environment. You have the following development commands at your disposal:
+
+Command | Shortcut for
+--- | ---
+`pipenv run server` | `pipenv run python manage.py runserver_plus`
+`pipenv run shell` | `pipenv run python manage.py shell_plus`
+`pipenv run makemigrations` | `pipenv run python manage.py makemigrations`
+`pipenv run migrate` | `pipenv run python manage.py migrate`
 
 To compile your static files, you need to have npm installed and all the local dependencies (run `npm install`). Then can execute the following commands
 Command | Shortcut for

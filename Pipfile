@@ -13,6 +13,8 @@ shell = "python manage.py shell"
 
 [packages]
 django = "==2.2.*"
+django-environ = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.7"

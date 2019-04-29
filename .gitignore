@@ -10,3 +10,10 @@ __pycache__
 
 # Static files
 node_modules
+
+# Webpack
+assets/webpack-bundle.dev.json
+assets/bundles/style-dev-main.css
+assets/bundles/style-dev-main.css.map
+assets/bundles/script-dev-main.js
+assets/bundles/script-dev-main.js.map

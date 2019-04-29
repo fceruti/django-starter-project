@@ -10,6 +10,7 @@ root_path = environ.Path(__file__) - 2
 # Basic Config
 # -----------------------------------------------------------------------------
 ENV = env('ENV', default='prod')
+assert ENV in ['dev', 'test', 'prod', 'qa']
 DEBUG = env.bool('DEBUG', default=False)
 BASE_DIR = root_path()
 ROOT_URLCONF = 'conf.urls'
@@ -119,7 +120,7 @@ STATICFILES_DIRS = (
 )
 
 webpack_stats_filename = 'webpack-bundle.%s.json' % ENV
-stats_file = os.path.join(root_path('assets'), webpack_stats_filename)
+stats_file = os.path.join(root_path('assets/'), webpack_stats_filename)
 
 WEBPACK_LOADER = {
     'DEFAULT': {

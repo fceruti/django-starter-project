@@ -1,3 +1,5 @@
+{% load render_bundle from webpack_loader %}
+
 <!doctype html>
 <html lang="{{ LANGUAGE }}">
   <head>
@@ -5,8 +7,10 @@
     <title>{% block page_title %}{% endblock %}</title>
     <meta name="description" content="{% block page_description %}{% endblock %}">
     {% block page_extra_meta %}{% endblock %}
+    {% render_bundle 'main' 'css' %}
   </head>
   <body>
     {% block body %}{% endblock %}
+    {% render_bundle 'main' 'js' %}
   </body>
 </html>

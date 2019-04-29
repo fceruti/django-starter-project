@@ -2,14 +2,21 @@
 
 Starting point for all django projects.
 
-### Environment variables
+### Running the project
 
+To compile your static files, you need to have npm installed and all the local dependencies (run `npm install`). Then can execute the following commands
+Command | Shortcut for
+--- | ---
+`npm run dev` | `webpack --mode development --watch`
+`npm run build` | `webpack --mode production`
+
+### Environment variables
 These environment variables must be provided to properly run the project in each environment they run on.
 
 #### Django
 Name | Values | Default | Description
 --- | --- | --- | ---
-ENV | dev, test, staging, prod | prod | Indicates in which environmet the project is running on
+ENV | dev, test, qa, prod | prod | Indicates in which environmet the project is running on
 DEBUG | on, off | off | Run server in debug mode
 LANGUAGE_CODE | Language Identifier (RFC 3066) | en-US | [List of language codes](http://www.i18nguy.com/unicode/language-identifiers.html)
 TIME_ZONE | Record of IANA time zone database | America/Santiago | [List of timezones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)

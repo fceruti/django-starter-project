@@ -1,0 +1,12 @@
+# Pull base image
+FROM node:latest
+
+# Set work directory
+WORKDIR /code
+
+# Copy webpack config
+COPY webpack.config.js .
+
+# Install node modules
+COPY package*.json ./
+RUN npm install --only=dev

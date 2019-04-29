@@ -6,6 +6,7 @@ verify_ssl = true
 [scripts]
 server = "python manage.py runserver"
 tests = "pytest"
+celery = "pipenv run python manage.py celery_autoreload"
 migrate = "python manage.py migrate"
 makemigrations = "python manage.py makemigrations"
 shell = "python manage.py shell"
@@ -16,6 +17,7 @@ django-debug-toolbar = "*"
 isort = "*"
 pytest = "*"
 pytest-django = "*"
+redis = "*"
 
 [packages]
 django = "==2.2.*"
@@ -23,6 +25,7 @@ django-environ = "*"
 psycopg2-binary = "*"
 django-webpack-loader = "*"
 django-extensions = "*"
+celery = "*"
 
 [requires]
 python_version = "3.7"

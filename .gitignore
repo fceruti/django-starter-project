@@ -2,6 +2,10 @@
 *.pyc
 __pycache__
 
+# Django dynamic directories
+logs
+media
+
 # Database files
 .sqlite3
 

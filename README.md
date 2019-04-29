@@ -3,12 +3,32 @@
 Starting point for all django projects.
 
 ### Running the project
-Make sure you have pipenv installed in your virtual environment. You have the following development commands at your disposal:
+You have two ways of running the project, using Docker or calling everything yourself.
+
+#### Docker
+To run this project using Docker you just need to execute `docker-compose up` and everything will be set for you in your local machine.
+
+Here are a few advanced commands that may come in handy
+
+Command | Description
+--- | ---
+`docker ps` | List all containers (-a to include stopped)
+`docker logs --follow <container_id>` | Display the logs of a container
+`docker exec -it <container_id> /bin/bash` | Attach into a running container
+`docker run --rm <image_name> /bin/bash` | Run a docker container based on an image and get a prompt
+`docker-compose run --rm web /bin/bash` | Same as before but for services defined in docker-compose.yml
+`docker-compose run --rm web /bin/bash -c 'python manage.py migrate'` | Run a management command
+
+#### The old way
+First of all, install pyenv so you can use the specified python version (check out .python-version). Then, run `pip install pipenv` to install it's pip's successor: pipenv. Then install dependencies by running `pipenv install`. You can now start developing.
+
+These commands are at your disposal:
 
 Command | Shortcut for
 --- | ---
 `pipenv run server` | `pipenv run python manage.py runserver_plus`
 `pipenv run tests` | `pipenv run pytest`
+`pipenv run celery` | `pipenv run python manage.py celery_autoreload`
 `pipenv run shell` | `pipenv run python manage.py shell_plus`
 `pipenv run makemigrations` | `pipenv run python manage.py makemigrations`
 `pipenv run migrate` | `pipenv run python manage.py migrate`
@@ -41,6 +61,11 @@ LOGIN_URL | Url | /login/ | Url to redirect users when login is needed
 LOGIN_REDIRECT_URL | Url | / | Url to redirect users after login in
 STATIC_URL | Url | /static/ | Url from which static files are served
 MEDIA_URL | Url | /media/ | Url from which media files are served
+
+#### Celery
+Name | Values | Default | Description
+--- | --- | --- | ---
+CELERY_BROKER_URL | Database url | -- | A common value for development is to use redis://cache, but it's recommended for production to use RabbitMQ
 
 #### Django debug toolbar
 Name | Values | Default | Description

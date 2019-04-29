@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  web:
+    image: dev_server
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    volumes:
+      - .:/code
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - 8000:8000
+    env_file: .env
+    environment:
+      - BROKER_URL=redis://cache
+
+  worker:
+    image: dev_worker
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    volumes:
+      - .:/code
+    command: python manage.py celery_autoreload
+    env_file: .env
+    environment:
+      - BROKER_URL=redis://cache
+
+  redis:
+    image: redis
+    container_name: cache
+    expose:
+      - 6379
+
+  webpack:
+    image: dev_webpack
+    build:
+      context: .
+      dockerfile: Dockerfile.webpack
+    volumes:
+      - ./assets:/code/assets
+    command: npm run dev
+
+volumes:
+  database_volume:

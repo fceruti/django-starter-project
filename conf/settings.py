@@ -116,3 +116,16 @@ STATICFILES_DIRS = (
     ('bundles', root_path('assets/bundles')),
     ('img', root_path('assets/img')),
 )
+
+# -----------------------------------------------------------------------------
+# Django Debug Toolbar
+# -----------------------------------------------------------------------------
+USE_DEBUG_TOOLBAR = env.bool('USE_DEBUG_TOOLBAR', default=DEBUG)
+
+if USE_DEBUG_TOOLBAR:
+    INSTALLED_APPS += ['debug_toolbar']
+    INTERNAL_IPS = ['127.0.0.1']
+    MIDDLEWARE.insert(
+        0,
+        'debug_toolbar.middleware.DebugToolbarMiddleware'
+    )

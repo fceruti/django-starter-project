@@ -25,3 +25,8 @@ LOGIN_URL | Url | /login/ | Url to redirect users when login is needed
 LOGIN_REDIRECT_URL | Url | / | Url to redirect users after login in
 STATIC_URL | Url | /static/ | Url from which static files are served
 MEDIA_URL | Url | /media/ | Url from which media files are served
+
+#### Django debug toolbar
+Name | Values | Default | Description
+--- | --- | --- | ---
+USE_DEBUG_TOOLBAR | on, off | off | Enables django debug toolbar

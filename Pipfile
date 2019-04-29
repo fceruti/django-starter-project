@@ -10,6 +10,7 @@ makemigrations = "python manage.py makemigrations"
 shell = "python manage.py shell"
 
 [dev-packages]
+flake8 = "*"
 
 [packages]
 django = "==2.2.*"

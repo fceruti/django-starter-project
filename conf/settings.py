@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     # Third party
 
     # Local
+    'apps.misc',
 ]
 
 MIDDLEWARE = [
@@ -95,11 +96,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'apps.misc.context_processors.django_settings',
             ],
         },
     },
 ]
-
 
 # -----------------------------------------------------------------------------
 # Static & Media Files

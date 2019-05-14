@@ -14,8 +14,10 @@ services:
     env_file: .env
     environment:
       - BROKER_URL=redis://cache
+      - DATABASE_URL=postgres://postgres@db:5432/django_db
     links:
       - redis:cache
+      - postgres:db
 
   worker:
     image: dev_worker
@@ -28,13 +30,22 @@ services:
     env_file: .env
     environment:
       - BROKER_URL=redis://cache
+      - DATABASE_URL=postgres://postgres@db:5432/django_db
     links:
       - redis:cache
+      - postgres:db
 
   redis:
     image: redis
     expose:
       - 6379
+
+  postgres:
+    image: postgres:11
+    expose:
+      - 5432
+    volumes:
+      - database_volume:/var/lib/postgresql/data
 
   webpack:
     image: dev_webpack

@@ -6,7 +6,11 @@ Starting point for all django projects.
 You have two ways of running the project, using Docker or calling everything yourself.
 
 #### Docker
-To run this project using Docker you just need to execute `docker-compose up` and everything will be set for you in your local machine.
+To run this project using Docker you just need to execute `docker-compose up` and everything will be set for you in your local machine. The only thing you need to do only once, is to create the actual database for that you need to get the postgres container id and run:
+
+```
+docker exec -it <container_id> psql -U postgres -c "create database django_db"
+```
 
 Here are a few advanced commands that may come in handy
 

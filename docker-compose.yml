@@ -14,6 +14,8 @@ services:
     env_file: .env
     environment:
       - BROKER_URL=redis://cache
+    links:
+      - redis:cache
 
   worker:
     image: dev_worker
@@ -26,10 +28,11 @@ services:
     env_file: .env
     environment:
       - BROKER_URL=redis://cache
+    links:
+      - redis:cache
 
   redis:
     image: redis
-    container_name: cache
     expose:
       - 6379
 

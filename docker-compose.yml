@@ -11,13 +11,13 @@ services:
     command: python manage.py runserver 0.0.0.0:8000
     ports:
       - 8000:8000
-    env_file: .env
+    env_file:
+      - .env
+      - .env.docker
     environment:
       - BROKER_URL=redis://cache
-      - DATABASE_URL=postgres://postgres@db:5432/django_db
     links:
       - redis:cache
-      - postgres:db
 
   worker:
     image: dev_worker
@@ -27,25 +27,18 @@ services:
     volumes:
       - .:/code
     command: python manage.py celery_autoreload
-    env_file: .env
+    env_file:
+      - .env
+      - .env.docker
     environment:
       - BROKER_URL=redis://cache
-      - DATABASE_URL=postgres://postgres@db:5432/django_db
     links:
       - redis:cache
-      - postgres:db
 
   redis:
     image: redis
     expose:
       - 6379
-
-  postgres:
-    image: postgres:11
-    expose:
-      - 5432
-    volumes:
-      - database_volume:/var/lib/postgresql/data
 
   webpack:
     image: dev_webpack
@@ -55,6 +48,3 @@ services:
     volumes:
       - ./assets:/code/assets
     command: npm run dev
-
-volumes:
-  database_volume:

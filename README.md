@@ -2,11 +2,44 @@
 
 Starting point for all django projects.
 
+The services provided are:
+
+* **web** Web server running django on port 8000.
+* **worker** Run async tasks with celery.
+* **redis** Used to store celery tasks.
+* **webpack** Automatically watched changes and recompiles static files for development.
+
+The database should be configured in the host machine, as it is easier for development.
+
 ### Running the project
 You have two ways of running the project, using Docker or calling everything yourself.
 
 #### Docker
-To run this project using Docker you just need to execute `docker-compose up` and everything will be set for you in your local machine. The only thing you need to do only once, is to create the actual database for that you need to get the postgres container id and run:
+
+The first step is to create two environment files called `.env` and `.env.docker`
+
+**.env**
+```
+ENV=dev
+DEBUG=on
+SECRET_KEY=123
+TIMEZONE=America/Santiago
+STATIC_URL=/static/
+MEDIA_URL=/media/
+DATABASE_URL=postgres://localhost:5432/django_db
+DJANGO_SETTINGS_MODULE=conf.settings
+DEFAULT_FROM_EMAIL=hello@fceruti.com
+EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
+USE_DEBUG_TOOLBAR=on
+```
+
+**.env.docker**
+```
+DATABASE_URL=postgres://fceruti@host.docker.internal:5432/django_db
+```
+Docker containers needs to access database in your host machine, so it should have a different address as pytest for example that runs completely on you host machine. Make sure you create a database and change the DATABASE_URL in both files accordingly.
+
+Now to run the project using Docker execute `docker-compose up` and everything will be set for you in your local machine.
 
 ```
 docker exec -it <container_id> psql -U postgres -c "create database django_db"

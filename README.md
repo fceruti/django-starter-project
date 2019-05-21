@@ -110,3 +110,36 @@ CELERY_BROKER_URL | Database url | -- | A common value for development is to use
 Name | Values | Default | Description
 --- | --- | --- | ---
 USE_DEBUG_TOOLBAR | on, off | off | Enables django debug toolbar
+
+
+### VSCode settings
+
+Now a days my go-to editor is VSCode, so here's a template for `.vscode/settings.json`:
+
+```
+{
+    // Interpreter
+    "python.pythonPath": "<path>",
+    "python.envFile": "${workspaceFolder}/.env",
+
+    // Linting
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+
+    // Search
+    "search.exclude": {
+        "**/.git": true,
+        "**/.vscode": true,
+        "**/node_modules": true,
+        "**/static": true,
+        "**/media": true,
+        "**/logs": true,
+        "**/tmp": true,
+        "**/locale": true,
+    },
+    "search.showLineNumbers": true,
+}
+```
+
+To fill the pythonPath run `pipenv --py` after initializing the directory's virtual environment.

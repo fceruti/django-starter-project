@@ -65,10 +65,10 @@ class CodeModel(TimestampedModel):
             while True:
                 new_code = str(uuid.uuid4())
                 try:
-                    self.__class__.objects.get(code=code)
+                    self.__class__.objects.get(code=new_code)
+                    continue
+                except self.__class__.DoesNotExist:
                     self.code = new_code
                     break
-                except self.__class__.DoesNotExist:
-                    continue
             self.code = new_code
         super().save(*args, **kwargs)

@@ -1,51 +1,53 @@
 # Django Starter Project
 
-Starting point for all django projects.
+This repo is a starting point for a clasic django web service project running on docker that have the following services:
 
-The services provided are:
-
-* **web** Web server running django on port 8000.
-* **worker** Run async tasks with celery.
-* **redis** Used to store celery tasks.
-* **webpack** Automatically watched changes and recompiles static files for development.
+* **web:** Web server running django on port 8000.
+* **worker:** Run async tasks with celery.
+* **redis:** Used to store celery tasks.
+* **webpack:** Automatically watches changes and recompiles static files for development. By default compiles `sass`.
 
 The database should be configured in the host machine, as it is easier for development.
 
-### Running the project
-You have two ways of running the project, using Docker or calling everything yourself.
+## Getting started
+If you are starting a new project go ahead and clone this repo in a directory of your choosing
 
-#### Docker
+```bash
+git clone git@github.com:fceruti/django-starter-project.git <new-directory>
+cd <new-directory>
+```
 
-The first step is to create two environment files called `.env` and `.env.docker`
+Create a database for your project (we'll call it django_db). Then you need to create a file called `.env` and write the environment variables you wish to use for development
 
-**.env**
 ```
 ENV=dev
 DEBUG=on
 SECRET_KEY=123
-TIMEZONE=America/Santiago
-STATIC_URL=/static/
-MEDIA_URL=/media/
 DATABASE_URL=postgres://localhost:5432/django_db
-DJANGO_SETTINGS_MODULE=conf.settings
-DEFAULT_FROM_EMAIL=hello@fceruti.com
 EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
 USE_DEBUG_TOOLBAR=on
 ```
 
-**.env.docker**
-```
-DATABASE_URL=postgres://fceruti@host.docker.internal:5432/django_db
-```
-Docker containers needs to access database in your host machine, so it should have a different address as pytest for example that runs completely on you host machine. Make sure you create a database and change the DATABASE_URL in both files accordingly.
-
-Now to run the project using Docker execute `docker-compose up` and everything will be set for you in your local machine.
+We now need to override `DATABASE_URL` environment variable inside of Docker to connect directly to you host machine. Create a file called `.env.docker` with the following content:
 
 ```
-docker exec -it <container_id> psql -U postgres -c "create database django_db"
+DATABASE_URL=postgres://<user>@host.docker.internal:5432/django_db
 ```
 
-Here are a few advanced commands that may come in handy
+* **user** is the user in your host machine that has access to postgres in this case.
+
+We are all set up for bringing everything live with
+
+```
+docker-compose up
+```
+
+Wait for everything to load, and you can visit `https://127.0.0.1:8000` and your new awesomely configured site will be there.
+
+
+
+## Docker commands
+Here are a few commands that may come in handy
 
 Command | Description
 --- | ---
@@ -56,7 +58,7 @@ Command | Description
 `docker-compose run --rm web /bin/bash` | Same as before but for services defined in docker-compose.yml
 `docker-compose run --rm web /bin/bash -c 'python manage.py migrate'` | Run a management command
 
-#### The old way
+## Old fashion install
 First of all, install pyenv so you can use the specified python version (check out .python-version). Then, run `pip install pipenv` to install it's pip's successor: pipenv. Then install dependencies by running `pipenv install`. You can now start developing.
 
 These commands are at your disposal:
@@ -77,7 +79,7 @@ Command | Shortcut for
 `npm run build` | `webpack --mode production`
 
 ### Environment variables
-These environment variables must be provided to properly run the project in each environment they run on.
+These environment variables can be provided to configure your project.
 
 #### Django
 Name | Values | Default | Description

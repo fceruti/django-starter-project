@@ -28,7 +28,7 @@ USE_TZ = env('USE_TZ', default=True)
 # -----------------------------------------------------------------------------
 # Emails
 # -----------------------------------------------------------------------------
-DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='')
 EMAIL_BACKEND = env(
     'EMAIL_BACKEND',
     default='django.core.mail.backends.smtp.EmailBackend')

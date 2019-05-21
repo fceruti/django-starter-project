@@ -47,11 +47,7 @@ class TimestampedModel(models.Model):
 
 class CodeModel(TimestampedModel):
     code = models.CharField(
-        max_length=255,
-        unique=True,
-        db_index=True,
-        null=False,
-        blank=True)
+        max_length=255, unique=True, db_index=True, null=False, blank=True)
 
     class Meta:
         abstract = True
@@ -70,5 +66,4 @@ class CodeModel(TimestampedModel):
                 except self.__class__.DoesNotExist:
                     self.code = new_code
                     break
-            self.code = new_code
         super().save(*args, **kwargs)

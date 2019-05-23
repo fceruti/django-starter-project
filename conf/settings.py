@@ -38,6 +38,7 @@ EMAIL_BACKEND = env(
 # -----------------------------------------------------------------------------
 SECRET_KEY = env('SECRET_KEY')
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
+AUTH_USER_MODEL = 'users.User'
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -49,6 +50,9 @@ AUTHENTICATION_BACKENDS = (
 )
 LOGIN_URL = env('LOGIN_URL', default='/login/')
 LOGIN_REDIRECT_URL = env('LOGIN_REDIRECT_URL', default='/')
+ACCOUNT_ACTIVATION_DAYS = env.int('ACCOUNT_ACTIVATION_DAYS', default=7)
+REGISTRATION_OPEN = env.bool('REGISTRATION_OPEN', default=True)
+REGISTRATION_AUTO_LOGIN = env.bool('REGISTRATION_AUTO_LOGIN', default=True)
 
 # -----------------------------------------------------------------------------
 # Databases
@@ -69,10 +73,12 @@ INSTALLED_APPS = [
 
     # Third party
     'webpack_loader',
+    'registration',  # should be inmediatly above admin
 
     # Local
     'conf.apps.CustomAdminConfig',
     'apps.misc',
+    'apps.users',
 ]
 
 if ENV == 'dev':

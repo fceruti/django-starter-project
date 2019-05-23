@@ -101,6 +101,13 @@ LOGIN_REDIRECT_URL | Url | / | Url to redirect users after login in
 STATIC_URL | Url | /static/ | Url from which static files are served
 MEDIA_URL | Url | /media/ | Url from which media files are served
 
+#### Django Registration Redux
+[Documentation](https://django-registration-redux.readthedocs.io)
+Name | Values | Default | Description
+--- | --- | --- | ---
+ACCOUNT_ACTIVATION_DAYS | int | 7 | How long (in days) after signup an account has in which to activate.
+REGISTRATION_OPEN | on, off | on | Indicates whether registration of new accounts is currently permitted.
+REGISTRATION_AUTO_LOGIN | on, off | on | If this is True, your users will automatically log in when they click on the activation link in their email.
 #### Celery
 Name | Values | Default | Description
 --- | --- | --- | ---

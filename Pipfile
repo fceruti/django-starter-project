@@ -26,6 +26,7 @@ psycopg2-binary = "*"
 django-webpack-loader = "*"
 django-extensions = "*"
 celery = "*"
+django-registration-redux = "*"
 
 [requires]
 python_version = "3.7.2"

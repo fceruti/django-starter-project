@@ -61,7 +61,6 @@ DATABASES = {'default': DJANGO_DATABASE_URL}
 # -----------------------------------------------------------------------------
 INSTALLED_APPS = [
     # First party
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -72,6 +71,7 @@ INSTALLED_APPS = [
     'webpack_loader',
 
     # Local
+    'conf.apps.CustomAdminConfig',
     'apps.misc',
 ]
 

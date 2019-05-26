@@ -5,32 +5,39 @@ from django.db import models
 
 
 class Choices:
+    """
+    Helper class to create choices from django models. Every property you
+    add is a choice. If you define as value a string, then the value is
+    the database entry, while the property name is the display name. If
+    you pass a tuple, the first element is the database entry, and the
+    second the display name.
+
+    Usage:
+
+    class CarType(Choices):
+        SUV = 'SUV',
+        SEDAN = ('SD', 'Sedan')
+        HATCHBACK = ('HB', 'Hatchback')
+        CONVERTIBLE = ('CV', 'Convertible')
+        COUPE = ('CP', 'Coupe')
+
+    class Car(models.Model):
+        type = models.CharField(max_length=10, choices=CarType.choices())
+    """
+
     @classmethod
     def choices(cls):
         for attr_name in dir(cls):
+            value = getattr(cls, attr_name)
             if all([
                 attr_name,
                 not attr_name.startswith('_'),
-                not isinstance(getattr(cls, attr_name), Callable)
+                not isinstance(value, Callable)
             ]):
-                if isinstance(getattr(cls, attr_name), tuple):
-                    yield (getattr(cls, attr_name)[1],
-                           getattr(cls, attr_name)[0])
+                if isinstance(value, tuple):
+                    yield value
                 else:
-                    yield getattr(cls, attr_name), attr_name
-
-    @classmethod
-    def name(cls, target_val):
-        for attr in dir(cls):
-            if attr and not attr.startswith('_') \
-                    and not isinstance(getattr(cls, attr), Callable):
-                val = getattr(cls, attr)
-                if isinstance(val, tuple):
-                    if val[1] == target_val:
-                        return val[0]
-                if val == target_val:
-                    return attr
-        return ''
+                    yield value, attr_name
 
     @classmethod
     def keys(cls):

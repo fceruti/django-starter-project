@@ -45,25 +45,25 @@ class TimestampedModel(models.Model):
         abstract = True
 
 
-class CodeModel(TimestampedModel):
-    code = models.CharField(
+class KeyModel(TimestampedModel):
+    key = models.CharField(
         max_length=255, unique=True, db_index=True, null=False, blank=True)
 
     class Meta:
         abstract = True
 
     @property
-    def short_code(self):
-        return self.code[:8]
+    def short_key(self):
+        return self.key[:8]
 
     def save(self, *args, **kwargs):
-        if not self.code:
+        if not self.key:
             while True:
-                new_code = str(uuid.uuid4())
+                new_key = str(uuid.uuid4())
                 try:
-                    self.__class__.objects.get(code=new_code)
+                    self.__class__.objects.get(key=new_key)
                     continue
                 except self.__class__.DoesNotExist:
-                    self.code = new_code
+                    self.key = new_key
                     break
         super().save(*args, **kwargs)

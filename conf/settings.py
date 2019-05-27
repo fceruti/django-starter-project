@@ -116,7 +116,7 @@ TEMPLATES = [
 ]
 
 # -----------------------------------------------------------------------------
-# Cellery
+# Celery
 # -----------------------------------------------------------------------------
 CELERY_BROKER_URL = env('CELERY_BROKER_URL', default='redis://cache')
 
@@ -127,7 +127,7 @@ STATIC_URL = env('STATIC_URL', default='/static/')
 STATIC_ROOT = root_path('static')
 
 MEDIA_URL = env('MEDIA_URL', default='/media/')
-MEDIA_ROOT = root_path('media')
+MEDIA_ROOT = env('MEDIA_ROOT', default=root_path('media'))
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 STATICFILES_DIRS = (
@@ -160,4 +160,55 @@ if USE_DEBUG_TOOLBAR:
     MIDDLEWARE.insert(
         0,
         'debug_toolbar.middleware.DebugToolbarMiddleware'
+    )
+
+
+# -----------------------------------------------------------------------------
+# Logging
+# -----------------------------------------------------------------------------
+LOGS_ROOT = env('LOGS_ROOT', default=root_path('logs'))
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'console_format': {
+            'format': '%(name)-12s %(levelname)-8s %(message)s'
+        },
+        'file_format': {
+            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'console_format'
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOGS_ROOT, 'django.log'),
+            'maxBytes': 1024 * 1024 * 15,  # 15MB
+            'backupCount': 10,
+            'formatter': 'file_format',
+        },
+    },
+    'loggers': {
+        '': {
+            'level': 'DEBUG',
+            'handlers': ['console', 'file']
+        }
+    }
+}
+
+USE_SENTRY = env.bool('USE_DEBUG_TOOLBAR', default=False)
+
+if USE_SENTRY:
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+
+    sentry_sdk.init(
+        dsn=env('SENTRY_DSN'),
+        integrations=[DjangoIntegration()],
+        environment=ENV
     )

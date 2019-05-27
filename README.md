@@ -108,6 +108,7 @@ Name | Values | Default | Description
 ACCOUNT_ACTIVATION_DAYS | int | 7 | How long (in days) after signup an account has in which to activate.
 REGISTRATION_OPEN | on, off | on | Indicates whether registration of new accounts is currently permitted.
 REGISTRATION_AUTO_LOGIN | on, off | on | If this is True, your users will automatically log in when they click on the activation link in their email.
+
 #### Celery
 Name | Values | Default | Description
 --- | --- | --- | ---
@@ -117,6 +118,12 @@ CELERY_BROKER_URL | Database url | -- | A common value for development is to use
 Name | Values | Default | Description
 --- | --- | --- | ---
 USE_DEBUG_TOOLBAR | on, off | off | Enables django debug toolbar
+
+#### Sentry
+Name | Values | Default | Description
+--- | --- | --- | ---
+USE_SENTRY | on, off | off | Enables sentry
+SENTRY_DSN | string | -- | Private URL-like configuration
 
 
 ### VSCode settings

@@ -1,4 +1,4 @@
-from apps.misc.models import Choices
+from apps.misc.choices import Choices
 
 
 def test_choices():

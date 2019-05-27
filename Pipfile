@@ -27,6 +27,7 @@ django-webpack-loader = "*"
 django-extensions = "*"
 celery = "*"
 django-registration-redux = "*"
+sentry-sdk = "*"
 
 [requires]
 python_version = "3.7.2"

@@ -1,5 +1,4 @@
-# Python
-*.pyc
+# Python bytecode
 __pycache__
 
 # Django dynamic directories

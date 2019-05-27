@@ -46,8 +46,7 @@ class UserAdmin(UserAdmin):
         model = RegistrationProfile
         extra = 0
 
-    inlines = [RegistrationProfileInline,]
-
+    inlines = [RegistrationProfileInline, ]
 
 
 admin.site.unregister(BaseGroup)

@@ -149,4 +149,4 @@ Now a days my go-to editor is VSCode, so here's a template for `.vscode/settings
 }
 ```
 
-To fill the pythonPath run `pipenv --py` after initializing the directory's virtual environment.
+To fill the `python.pythonPath` run `pipenv --py` after initializing the directory's virtual environment.

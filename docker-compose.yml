@@ -8,6 +8,8 @@ services:
       dockerfile: Dockerfile.web
     volumes:
       - .:/code
+      - ./logs/web:/logs
+      - ./media:/uploads
     command: python manage.py runserver 0.0.0.0:8000
     ports:
       - 8000:8000
@@ -16,6 +18,8 @@ services:
       - .env.docker
     environment:
       - BROKER_URL=redis://cache
+      - MEDIA_ROOT=/uploads
+      - LOGS_ROOT=/logs
     links:
       - redis:cache
 
@@ -26,12 +30,16 @@ services:
       dockerfile: Dockerfile.worker
     volumes:
       - .:/code
+      - ./logs/worker:/logs
+      - ./media:/uploads
     command: python manage.py celery_autoreload
     env_file:
       - .env
       - .env.docker
     environment:
       - BROKER_URL=redis://cache
+      - MEDIA_ROOT=/uploads
+      - LOGS_ROOT=/logs
     links:
       - redis:cache
 

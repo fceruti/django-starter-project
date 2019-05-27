@@ -119,9 +119,10 @@ Name | Values | Default | Description
 --- | --- | --- | ---
 USE_DEBUG_TOOLBAR | on, off | off | Enables django debug toolbar
 
-#### Sentry
+#### Loggin & Sentry
 Name | Values | Default | Description
 --- | --- | --- | ---
+LOGS_ROOT | path | -- | Path to the directory where logs are to be stored
 USE_SENTRY | on, off | off | Enables sentry
 SENTRY_DSN | string | -- | Private URL-like configuration
 

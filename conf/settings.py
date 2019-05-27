@@ -201,7 +201,7 @@ LOGGING = {
     }
 }
 
-USE_SENTRY = env.bool('USE_DEBUG_TOOLBAR', default=False)
+USE_SENTRY = env.bool('USE_SENTRY', default=False)
 
 if USE_SENTRY:
     import sentry_sdk

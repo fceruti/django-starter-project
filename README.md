@@ -7,7 +7,7 @@ This repo is a starting point for a clasic django web service project running on
 * **redis:** Used to store celery tasks.
 * **webpack:** Automatically watches changes and recompiles static files for development. By default compiles `sass`.
 
-The database should be configured in the host machine, as it is easier for development.
+The database should be configured in the host machine, as it is easier for development. If you want to understand the logic behind every desition made here, visit this [blog post](https://medium.com/@fceruti/setting-up-a-django-project-like-a-pro-a847a9867f9d) where I try to explain everything.
 
 ## Getting started
 If you are starting a new project go ahead and clone this repo in a directory of your choosing

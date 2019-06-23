@@ -18,6 +18,7 @@ isort = "*"
 pytest = "*"
 pytest-django = "*"
 redis = "*"
+pytest-env = "*"
 
 [packages]
 django = "==2.2.*"

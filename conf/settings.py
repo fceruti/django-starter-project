@@ -119,6 +119,7 @@ TEMPLATES = [
 # Celery
 # -----------------------------------------------------------------------------
 CELERY_BROKER_URL = env('CELERY_BROKER_URL', default='redis://cache')
+CELERY_TASK_ALWAYS_EAGER = env('CELERY_TASK_ALWAYS_EAGER', default=False)
 
 # -----------------------------------------------------------------------------
 # Static & Media Files

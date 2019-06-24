@@ -113,6 +113,7 @@ REGISTRATION_AUTO_LOGIN | on, off | on | If this is True, your users will automa
 Name | Values | Default | Description
 --- | --- | --- | ---
 CELERY_BROKER_URL | Database url | -- | A common value for development is to use redis://cache, but it's recommended for production to use RabbitMQ
+CELERY_TASK_ALWAYS_EAGER | on, off | off | If this is True, all tasks will be executed locally by blocking until the task returns. 
 
 #### Django debug toolbar
 Name | Values | Default | Description

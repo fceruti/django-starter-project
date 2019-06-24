@@ -1,7 +1,22 @@
 from collections import Callable
 
 
-class Choices:
+class ChoicesMeta(type):
+    def __getattribute__(self, name):
+        if name and not name.startswith('_'):
+            try:
+                value = self.__dict__[name]
+                if not isinstance(value, Callable):
+                    if type(value) is tuple:
+                        return value[0]
+                    else:
+                        return value
+            except KeyError:
+                pass
+        return super().__getattribute__(name)
+
+
+class Choices(metaclass=ChoicesMeta):
     """
     Helper class to create choices from django models. Every property you
     add is a choice. If you define as value a string, then the value is
@@ -20,17 +35,20 @@ class Choices:
 
     class Car(models.Model):
         type = models.CharField(max_length=10, choices=CarType.choices())
+
+
+    convertibles = Car.objects.filter(type=CarType.CONVERTIBLE)
     """
 
     @classmethod
     def choices(cls):
         for attr_name in dir(cls):
-            value = getattr(cls, attr_name)
-            if all([
-                attr_name,
-                not attr_name.startswith('_'),
-                not isinstance(value, Callable)
-            ]):
+            if attr_name.startswith('_'):
+                continue
+            if attr_name in ['keys', 'choices']:
+                continue
+            value = cls.__dict__[attr_name]     
+            if not isinstance(value, Callable):
                 if isinstance(value, tuple):
                     yield value
                 else:

@@ -5,7 +5,7 @@ services:
     image: dev_server
     build:
       context: .
-      dockerfile: Dockerfile-web
+      dockerfile: Dockerfile
     volumes:
       - .:/code
       - ./logs/web:/logs
@@ -27,7 +27,7 @@ services:
     image: dev_worker
     build:
       context: .
-      dockerfile: Dockerfile-worker
+      dockerfile: Dockerfile
     volumes:
       - .:/code
       - ./logs/worker:/logs

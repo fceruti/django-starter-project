@@ -15,13 +15,13 @@ module.exports = (env, argv) => {
   switch (argv.mode) {
     case 'production':
       output = {
-        path: resolve('assets/bundles/'),
+        path: resolve('bundles/'),
         filename: 'script-[name].[chunkhash].js',
         chunkFilename: 'script-[name].[id].[chunkhash].js',
         publicPath: 'https://example.com/static/bundles/'
       };
       bundleTrackerPlugin = new BundleTracker({
-        filename: 'assets/webpack-bundle.prod.json',
+        filename: 'webpack-bundle.prod.json',
       });
       extractCssPlugin = new MiniCssExtractPlugin({
         filename: 'style-[name].[chunkhash].css',
@@ -32,13 +32,13 @@ module.exports = (env, argv) => {
 
     case 'development':
       output = {
-        path: resolve('assets/bundles/'),
+        path: resolve('bundles/'),
         filename: 'script-dev-[name].js',
         chunkFilename: 'script-dev-[name].js',
         publicPath: 'http://127.0.0.1:8000/static/bundles/',
       };
       bundleTrackerPlugin = new BundleTracker({
-        filename: 'assets/webpack-bundle.dev.json',
+        filename: 'webpack-bundle.dev.json',
       });
       extractCssPlugin = new MiniCssExtractPlugin({
         filename: 'style-dev-[name].css',
@@ -52,7 +52,7 @@ module.exports = (env, argv) => {
 
   return {
     mode: argv.mode,
-    entry: './assets/index.js',
+    entry: './index.js',
     output,
     module: {
       rules: [

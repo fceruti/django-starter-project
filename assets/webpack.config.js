@@ -1,10 +1,9 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const path = require('path');
-const webpack = require('webpack');
-const BundleTracker = require('webpack-bundle-tracker');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require("path");
+const webpack = require("webpack");
+const BundleTracker = require("webpack-bundle-tracker");
 
 const resolve = path.resolve.bind(path, __dirname);
-
 
 module.exports = (env, argv) => {
   let output;
@@ -13,38 +12,38 @@ module.exports = (env, argv) => {
   let fileLoaderPath;
 
   switch (argv.mode) {
-    case 'production':
+    case "production":
       output = {
-        path: resolve('bundles/'),
-        filename: 'script-[name].[chunkhash].js',
-        chunkFilename: 'script-[name].[id].[chunkhash].js',
-        publicPath: 'https://example.com/static/bundles/'
+        path: resolve("bundles/"),
+        filename: "script-[name].[chunkhash].js",
+        chunkFilename: "script-[name].[id].[chunkhash].js",
+        publicPath: "https://example.com/static/bundles/"
       };
       bundleTrackerPlugin = new BundleTracker({
-        filename: 'webpack-bundle.prod.json',
+        filename: "webpack-bundle.prod.json"
       });
       extractCssPlugin = new MiniCssExtractPlugin({
-        filename: 'style-[name].[chunkhash].css',
-        chunkFilename: 'style-[name].[id].[chunkhash].css',
+        filename: "style-[name].[chunkhash].css",
+        chunkFilename: "style-[name].[id].[chunkhash].css"
       });
-      fileLoaderPath = 'file-loader?name=[name].[hash].[ext]';
+      fileLoaderPath = "file-loader?name=[name].[hash].[ext]";
       break;
 
-    case 'development':
+    case "development":
       output = {
-        path: resolve('bundles/'),
-        filename: 'script-dev-[name].js',
-        chunkFilename: 'script-dev-[name].js',
-        publicPath: 'http://127.0.0.1:8000/static/bundles/',
+        path: resolve("bundles/"),
+        filename: "script-dev-[name].js",
+        chunkFilename: "script-dev-[name].js",
+        publicPath: "http://127.0.0.1:8000/static/bundles/"
       };
       bundleTrackerPlugin = new BundleTracker({
-        filename: 'webpack-bundle.dev.json',
+        filename: "webpack-bundle.dev.json"
       });
       extractCssPlugin = new MiniCssExtractPlugin({
-        filename: 'style-dev-[name].css',
-        chunkFilename: 'style-dev-[name].css',
+        filename: "style-dev-[name].css",
+        chunkFilename: "style-dev-[name].css"
       });
-      fileLoaderPath = 'file-loader?name=[name].[ext]';
+      fileLoaderPath = "file-loader?name=[name].[ext]";
       break;
     default:
       break;
@@ -52,7 +51,7 @@ module.exports = (env, argv) => {
 
   return {
     mode: argv.mode,
-    entry: './index.js',
+    entry: "./index.js",
     output,
     module: {
       rules: [
@@ -60,7 +59,7 @@ module.exports = (env, argv) => {
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          loader: 'babel-loader',
+          loader: "babel-loader"
         },
         // Styles
         {
@@ -68,41 +67,38 @@ module.exports = (env, argv) => {
           use: [
             MiniCssExtractPlugin.loader,
             {
-              loader: 'css-loader',
+              loader: "css-loader",
               options: {
-                sourceMap: true,
-              },
+                sourceMap: true
+              }
             },
             {
-              loader: 'sass-loader',
+              loader: "sass-loader",
               options: {
-                sourceMap: true,
-              },
-            },
-          ],
+                sourceMap: true
+              }
+            }
+          ]
         },
         // Fonts
         {
           test: /\.(eot|otf|ttf|woff|woff2)(\?v=[0-9.]+)?$/,
-          loader: 'file-loader',
+          loader: "file-loader",
           options: {
-            outputPath: 'fonts',
-          },
+            outputPath: "fonts"
+          }
         },
         // Images
         {
           test: /\.(png|svg|jpg)(\?v=[0-9.]+)?$/,
-          loader: 'file-loader',
+          loader: "file-loader",
           options: {
-            outputPath: 'images',
-          },
-        },
-      ],
+            outputPath: "images"
+          }
+        }
+      ]
     },
-    plugins: [
-      bundleTrackerPlugin,
-      extractCssPlugin,
-    ],
-    devtool: 'source-map',
+    plugins: [bundleTrackerPlugin, extractCssPlugin],
+    devtool: "source-map"
   };
 };

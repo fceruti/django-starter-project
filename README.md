@@ -1,23 +1,40 @@
 # Django Starter Project
 
-This repo is a starting point for a clasic django web service project running on docker that have the following services:
+An oppinionated boilerplate for your Django projects.
 
-* **web:** Web server running django on port 8000.
-* **worker:** Run async tasks with celery.
-* **redis:** Used to store celery tasks.
-* **webpack:** Automatically watches changes and recompiles static files for development. By default compiles `sass`.
+## Tool Choices
 
-The database should be configured in the host machine, as it is easier for development. If you want to understand the logic behind every desition made here, visit this [blog post](https://medium.com/@fceruti/setting-up-a-django-project-like-a-pro-a847a9867f9d) where I try to explain everything.
+* **Database:** [PostgreSQL](https://www.postgresql.org/)
+* **Task Queue:** [Celery](http://www.celeryproject.org/) with [Redis](https://redis.io/)
+* **Testing:** [PyTest](https://docs.pytest.org/en/latest/)
+* **Logging:** [Sentry](https://sentry.io)
+* **Static File Compiler:** [Webpack](https://webpack.js.org/)
+* **JS lint:** [ESLint](https://eslint.org/)
+* **Style lint:** [Stylelint](https://github.com/stylelint/stylelint)
+* **Static File Storage:** [AWS S3](https://aws.amazon.com/s3/) or [Digital Ocean Spaces](https://www.digitalocean.com/products/spaces/)
+* **Dev Orchestraition:** [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/)
 
 ## Getting started
-If you are starting a new project go ahead and clone this repo in a directory of your choosing
+
+This is a guide on how to use this repo and save hours of boring configuration.
+
+### 1) Add the boilerplate
+Instead of running `django-admin startproject` to start your new project, clone this repo in a directory of your choosing
 
 ```bash
 git clone git@github.com:fceruti/django-starter-project.git <new-directory>
-cd <new-directory>
 ```
 
-Create a database for your project (we'll call it django_db). Then you need to create a file called `.env` and write the environment variables you wish to use for development
+At this point you may either
+
+1) Start a clean git repo by removing the `.git` directory and then running `git init`.
+2) Receive patches and updates of this repo by modifing `.git/config` and switch `[remote "origin"]` for `[remote "upstream"]`, and then add your own `origin` by running `git remote add origin <your_repo>`.
+
+### 2) Set environment variables
+
+Following the [12 Factor App Guide](https://www.12factor.net/), we will configure our app by setting the configuration variables in the environment. To do that, just create a file named `.env` in the root of the project and [django-environ](https://github.com/joke2k/django-environ) will pick it up and populate our settings.
+
+Example:
 
 ```
 ENV=dev
@@ -28,7 +45,23 @@ EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
 USE_DEBUG_TOOLBAR=on
 ```
 
-We now need to override `DATABASE_URL` environment variable inside of Docker to connect directly to you host machine. Create a file called `.env.docker` with the following content:
+### 3) Create and migrate database
+
+I'll call this database `django_db` for the purposes of this guide, but you can call it however you want. Just watch out for careless copy-pasting.
+
+Now run
+
+```bash
+pipenv run migrate
+```
+
+### 4) Run the project
+
+You have two choices, either you turn every service on your own or you use docker-compose
+
+#### A) Use Docker Compose
+
+We need to override `DATABASE_URL` environment variable inside of the  Docker containers to connect directly to you host machine. Create a file called `.env.docker` with the following content:
 
 ```
 DATABASE_URL=postgres://<user>@host.docker.internal:5432/django_db
@@ -36,14 +69,37 @@ DATABASE_URL=postgres://<user>@host.docker.internal:5432/django_db
 
 * **user** is the user in your host machine that has access to postgres in this case.
 
-We are all set up for bringing everything live with
+Now we are ready to start the project.
 
-```
+```bash
 docker-compose up
 ```
 
-Wait for everything to load, and you can visit `https://127.0.0.1:8000` and your new awesomely configured site will be there.
+Visit [http://127.0.0.1:8000](http://127.0.0.1:8000) and you'll see your site up and running.
 
+#### B) Run buy yourself
+First of all, install [pyenv](https://github.com/pyenv/pyenv) so you can use the specified python version in `.python-version` file. Then, run `pip install pipenv` to install it's pip's successor: pipenv. Then install dependencies by running `pipenv install`.
+
+Then make sure you have `redis-server` running and finally on 3 separate consoles run:
+
+**worker**
+```bash
+pipenv run worker
+```
+
+**worker**
+```bash
+pipenv run server
+```
+
+**webpack**
+```bash
+cd assets
+npm install
+npm run dev
+```
+
+Visit [http://127.0.0.1:8000](http://127.0.0.1:8000) and you'll see your site up and running.
 
 
 ## Docker commands
@@ -58,10 +114,8 @@ Command | Description
 `docker-compose run --rm web /bin/bash` | Same as before but for services defined in docker-compose.yml
 `docker-compose run --rm web /bin/bash -c 'python manage.py migrate'` | Run a management command
 
-## Old fashion install
-First of all, install pyenv so you can use the specified python version (check out .python-version). Then, run `pip install pipenv` to install it's pip's successor: pipenv. Then install dependencies by running `pipenv install`. You can now start developing.
-
-These commands are at your disposal:
+## Pipenv commands
+These shortcuts are at your disposal:
 
 Command | Shortcut for
 --- | ---
@@ -103,24 +157,35 @@ LOGIN_REDIRECT_URL | Url | / | Url to redirect users after login in
 STATIC_URL | Url | /static/ | Url from which static files are served
 MEDIA_URL | Url | /media/ | Url from which media files are served
 
-#### Django Registration Redux
-[Documentation](https://django-registration-redux.readthedocs.io)
-Name | Values | Default | Description
---- | --- | --- | ---
-ACCOUNT_ACTIVATION_DAYS | int | 7 | How long (in days) after signup an account has in which to activate.
-REGISTRATION_OPEN | on, off | on | Indicates whether registration of new accounts is currently permitted.
-REGISTRATION_AUTO_LOGIN | on, off | on | If this is True, your users will automatically log in when they click on the activation link in their email.
-
 #### Celery
 Name | Values | Default | Description
 --- | --- | --- | ---
 CELERY_BROKER_URL | Database url | -- | A common value for development is to use redis://cache, but it's recommended for production to use RabbitMQ
 CELERY_TASK_ALWAYS_EAGER | on, off | off | If this is True, all tasks will be executed locally by blocking until the task returns.
 
+#### Django Storages
+[Documentation](https://django-storages.readthedocs.io/en/latest/)
+
+Name | Values | Default | Description
+--- | --- | --- | ---
+USE_S3_STATIC_STORAGE | on, off | off | Wheter or not to use S3
+AWS_ACCESS_KEY_ID | str | -- | AWS Access key id
+AWS_SECRET_ACCESS_KEY | str | -- | AWS Secret access key
+AWS_STORAGE_BUCKET_NAME | str | -- | Name of S3 bucket to be used
+
 #### Django debug toolbar
 Name | Values | Default | Description
 --- | --- | --- | ---
 USE_DEBUG_TOOLBAR | on, off | off | Enables django debug toolbar
+
+#### Django Registration Redux
+[Documentation](https://django-registration-redux.readthedocs.io)
+
+Name | Values | Default | Description
+--- | --- | --- | ---
+ACCOUNT_ACTIVATION_DAYS | int | 7 | How long (in days) after signup an account has in which to activate.
+REGISTRATION_OPEN | on, off | on | Indicates whether registration of new accounts is currently permitted.
+REGISTRATION_AUTO_LOGIN | on, off | on | If this is True, your users will automatically log in when they click on the activation link in their email.
 
 #### Logging & Sentry
 Name | Values | Default | Description

@@ -1,6 +1,32 @@
 
-@import "variables";
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: $color-title;
+	font-weight: bold;
+}
+
+h1 {
+	font-size: $font-size-xl;
+	margin-bottom: $margin-l;
+}
+
+h2 {
+	font-size: $font-size-l;
+	margin-bottom: $margin-m;
+}
+
+h3 {
+	font-size: $font-size-m;
+}
+
+p {
+	margin-bottom: $margin-m;
+}
 
 a {
-	color: $brand-color;
+	color: $color-link;
 }

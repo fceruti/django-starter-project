@@ -1,1 +1,19 @@
-$brand-color: #c90;
+
+// Font Size
+$base-font-size: 16px;
+$font-size-xs: $base-font-size / 2;
+$font-size-s: $base-font-size * 3 / 4;
+$font-size-m: $base-font-size * 1.5;
+$font-size-l: $base-font-size * 2;
+$font-size-xl: $base-font-size * 4;
+
+// Line heights
+$line-height-m: 1.5em;
+
+// Margins
+$base-margin: 15px;
+$margin-xs: $base-margin / 3;
+$margin-s: $base-margin * 2 / 3;
+$margin-m: $base-margin;
+$margin-l: $base-margin * 2;
+$margin-xl: $base-margin * 4;

@@ -29,6 +29,7 @@ django-extensions = "*"
 celery = "*"
 django-registration-redux = "*"
 sentry-sdk = "*"
+django-storages = "*"
 
 [requires]
 python_version = "3.7.2"

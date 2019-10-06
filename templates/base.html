@@ -1,11 +1,13 @@
 {% load render_bundle from webpack_loader %}
-
+{% load static %}
 <!doctype html>
 <html lang="{{ LANGUAGE }}">
   <head>
     <meta charset="utf-8">
     <title>{% block page_title %}{% endblock %}</title>
     <meta name="description" content="{% block page_description %}{% endblock %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="icon" href="{% static 'img/favicon.png' %}"/>
     {% block page_extra_meta %}{% endblock %}
     {% render_bundle 'main' 'css' %}
   </head>

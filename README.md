@@ -77,6 +77,8 @@ Command | Shortcut for
 --- | ---
 `npm run dev` | `webpack --mode development --watch`
 `npm run build` | `webpack --mode production`
+`npm run lint:js` | `eslint js/** --fix`
+`npm run lint:csss` | `stylelint scss/*.scss --syntax scss`
 
 ### Environment variables
 These environment variables can be provided to configure your project.
@@ -113,14 +115,14 @@ REGISTRATION_AUTO_LOGIN | on, off | on | If this is True, your users will automa
 Name | Values | Default | Description
 --- | --- | --- | ---
 CELERY_BROKER_URL | Database url | -- | A common value for development is to use redis://cache, but it's recommended for production to use RabbitMQ
-CELERY_TASK_ALWAYS_EAGER | on, off | off | If this is True, all tasks will be executed locally by blocking until the task returns. 
+CELERY_TASK_ALWAYS_EAGER | on, off | off | If this is True, all tasks will be executed locally by blocking until the task returns.
 
 #### Django debug toolbar
 Name | Values | Default | Description
 --- | --- | --- | ---
 USE_DEBUG_TOOLBAR | on, off | off | Enables django debug toolbar
 
-#### Loggin & Sentry
+#### Logging & Sentry
 Name | Values | Default | Description
 --- | --- | --- | ---
 LOGS_ROOT | path | -- | Path to the directory where logs are to be stored

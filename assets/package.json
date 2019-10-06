@@ -1,11 +1,13 @@
 {
   "name": "django-starter-project",
   "version": "1.0.0",
-  "description": "Starting point for all django projects.",
+  "description": "Asset files for django project.",
   "main": "webpack.config.js",
   "scripts": {
     "dev": "webpack --mode development --watch",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "lint:js": "eslint js/** --fix",
+    "lint:scss": "stylelint scss/*.scss --syntax scss --fix"
   },
   "author": "Francisco Ceruti <hello@fceruti.com>",
   "license": "ISC",
@@ -23,6 +25,8 @@
     "node-sass": "^4.12.0",
     "prettier": "^1.18.2",
     "sass-loader": "^8.0.0",
+    "stylelint": "^11.0.0",
+    "stylelint-config-standard": "^19.0.0",
     "webpack": "^4.41.0",
     "webpack-bundle-tracker": "^0.4.3",
     "webpack-cli": "^3.3.9"

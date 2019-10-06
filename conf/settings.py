@@ -137,7 +137,7 @@ STATICFILES_DIRS = (
 )
 
 webpack_stats_filename = 'webpack-bundle.%s.json' % ENV
-stats_file = os.path.join(root_path('assets/'), webpack_stats_filename)
+stats_file = os.path.join(root_path('assets/bundles/'), webpack_stats_filename)
 
 WEBPACK_LOADER = {
     'DEFAULT': {

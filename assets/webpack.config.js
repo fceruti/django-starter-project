@@ -15,16 +15,16 @@ module.exports = (env, argv) => {
     case "production":
       output = {
         path: resolve("bundles/"),
-        filename: "script-[name].[chunkhash].js",
-        chunkFilename: "script-[name].[id].[chunkhash].js",
+        filename: "[chunkhash]/[name].js",
+        chunkFilename: "[chunkhash]/[name].[id].js",
         publicPath: "https://example.com/static/bundles/"
       };
       bundleTrackerPlugin = new BundleTracker({
-        filename: "webpack-bundle.prod.json"
+        filename: "bundles/webpack-bundle.prod.json"
       });
       extractCssPlugin = new MiniCssExtractPlugin({
-        filename: "style-[name].[chunkhash].css",
-        chunkFilename: "style-[name].[id].[chunkhash].css"
+        filename: "[chunkhash]/[name].css",
+        chunkFilename: "[chunkhash]/[name].[id].css"
       });
       fileLoaderPath = "file-loader?name=[name].[hash].[ext]";
       break;
@@ -32,16 +32,16 @@ module.exports = (env, argv) => {
     case "development":
       output = {
         path: resolve("bundles/"),
-        filename: "script-dev-[name].js",
-        chunkFilename: "script-dev-[name].js",
+        filename: "dev/[name].js",
+        chunkFilename: "dev/[name].js",
         publicPath: "http://127.0.0.1:8000/static/bundles/"
       };
       bundleTrackerPlugin = new BundleTracker({
-        filename: "webpack-bundle.dev.json"
+        filename: "bundles/webpack-bundle.dev.json"
       });
       extractCssPlugin = new MiniCssExtractPlugin({
-        filename: "style-dev-[name].css",
-        chunkFilename: "style-dev-[name].css"
+        filename: "dev/[name].css",
+        chunkFilename: "dev/[name].[id].css"
       });
       fileLoaderPath = "file-loader?name=[name].[ext]";
       break;

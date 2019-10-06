@@ -5,8 +5,9 @@ FROM node:latest
 WORKDIR /code
 
 # Copy webpack config
-COPY webpack.config.js .
+COPY assets/webpack.config.js ./
 
 # Install node modules
-COPY package*.json ./
-RUN npm install --only=dev
+COPY assets/package*.json ./
+RUN npm install
+RUN npm rebuild node-sass  # Fix issue: https://github.com/sass/node-sass/issues/2536

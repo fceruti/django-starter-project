@@ -54,5 +54,5 @@ services:
       context: .
       dockerfile: Dockerfile-webpack
     volumes:
-      - ./assets:/code/assets
+      - ./assets:/code
     command: npm run dev

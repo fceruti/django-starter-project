@@ -157,6 +157,23 @@ Now a days my go-to editor is VSCode, so here's a template for `.vscode/settings
         "**/locale": true,
     },
     "search.showLineNumbers": true,
+
+    // Eslint
+    "eslint.options": {
+        "configFile": ".eslintrc.json"
+    },
+    "eslint.nodePath": "assets/node_modules/",
+    "eslint.workingDirectories": [
+        "assets/"
+    ],
+    "eslint.autoFixOnSave": true,
+
+    // Stylelint
+    "css.validate": false,
+    "less.validate": false,
+    "scss.validate": false,
+    "stylelint.enable": true,
+    "stylelint.autoFixOnSave": true
 }
 ```
 

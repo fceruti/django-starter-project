@@ -73,7 +73,7 @@ INSTALLED_APPS = [
 
     # Third party
     'webpack_loader',
-    'registration',  # should be inmediatly above admin
+    'registration',  # should be immediately above admin
 
     # Local
     'conf.apps.CustomAdminConfig',

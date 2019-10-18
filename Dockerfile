@@ -1,7 +1,7 @@
 # Pull base image
 FROM python:3.7.2-slim
 
-# Instal system dependencies
+# Install system dependencies
 RUN apt-get update
 RUN apt-get install git -y
 

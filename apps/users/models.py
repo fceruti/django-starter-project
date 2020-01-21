@@ -1,5 +1,8 @@
 from django.contrib.auth.models import (
-    AbstractBaseUser, Group as BaseGroup, PermissionsMixin)
+    AbstractBaseUser,
+    Group as BaseGroup,
+    PermissionsMixin,
+)
 from django.db import models
 from django.utils import timezone
 from registration.models import RegistrationProfile as BaseRegistrationProfile
@@ -15,7 +18,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(default=timezone.now)
 
     REQUIRED_FIELDS = []
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
 
     objects = UserManager()
 

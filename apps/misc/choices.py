@@ -3,7 +3,7 @@ from collections import Callable
 
 class ChoicesMeta(type):
     def __getattribute__(self, name):
-        if name and not name.startswith('_'):
+        if name and not name.startswith("_"):
             try:
                 value = self.__dict__[name]
                 if not isinstance(value, Callable):
@@ -43,11 +43,11 @@ class Choices(metaclass=ChoicesMeta):
     @classmethod
     def choices(cls):
         for attr_name in dir(cls):
-            if attr_name.startswith('_'):
+            if attr_name.startswith("_"):
                 continue
-            if attr_name in ['keys', 'choices']:
+            if attr_name in ["keys", "choices"]:
                 continue
-            value = cls.__dict__[attr_name]     
+            value = cls.__dict__[attr_name]
             if not isinstance(value, Callable):
                 if isinstance(value, tuple):
                     yield value

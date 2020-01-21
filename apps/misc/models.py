@@ -13,7 +13,8 @@ class TimestampedModel(models.Model):
 
 class KeyModel(TimestampedModel):
     key = models.CharField(
-        max_length=255, unique=True, db_index=True, null=False, blank=True)
+        max_length=255, unique=True, db_index=True, null=False, blank=True
+    )
 
     class Meta:
         abstract = True

@@ -6,20 +6,15 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('registration', '0004_supervisedregistrationprofile'),
-        ('users', '0001_initial'),
+        ("registration", "0004_supervisedregistrationprofile"),
+        ("users", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='RegistrationProfile',
-            fields=[
-            ],
-            options={
-                'proxy': True,
-                'indexes': [],
-                'constraints': [],
-            },
-            bases=('registration.registrationprofile',),
+            name="RegistrationProfile",
+            fields=[],
+            options={"proxy": True, "indexes": [], "constraints": [],},
+            bases=("registration.registrationprofile",),
         ),
     ]

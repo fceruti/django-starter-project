@@ -1,16 +1,11 @@
-from django.contrib.auth.models import (
-    AbstractBaseUser,
-    Group as BaseGroup,
-    PermissionsMixin,
-)
+from django.contrib.auth import models as base_models
 from django.db import models
 from django.utils import timezone
-from registration.models import RegistrationProfile as BaseRegistrationProfile
 
-from apps.users.managers import UserManager
+from apps.users import managers
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(base_models.AbstractBaseUser, base_models.PermissionsMixin):
     email = models.EmailField(unique=True, null=True, db_index=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -20,7 +15,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
     USERNAME_FIELD = "email"
 
-    objects = UserManager()
+    objects = managers.UserManager()
 
     def full_name(self):
         return self.email
@@ -32,11 +27,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
-class Group(BaseGroup):
-    class Meta:
-        proxy = True
-
-
-class RegistrationProfile(BaseRegistrationProfile):
+class Group(base_models.BaseGroup):
     class Meta:
         proxy = True

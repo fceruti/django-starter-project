@@ -50,9 +50,6 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
 LOGIN_URL = env("LOGIN_URL", default="/login/")
 LOGIN_REDIRECT_URL = env("LOGIN_REDIRECT_URL", default="/")
-ACCOUNT_ACTIVATION_DAYS = env.int("ACCOUNT_ACTIVATION_DAYS", default=7)
-REGISTRATION_OPEN = env.bool("REGISTRATION_OPEN", default=True)
-REGISTRATION_AUTO_LOGIN = env.bool("REGISTRATION_AUTO_LOGIN", default=True)
 
 # -----------------------------------------------------------------------------
 # Databases
@@ -72,7 +69,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Third party
     "webpack_loader",
-    "registration",  # should be immediately above admin
     # Local
     "conf.apps.CustomAdminConfig",
     "apps.misc",

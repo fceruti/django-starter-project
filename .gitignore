@@ -10,7 +10,6 @@ media
 
 # Environment variables
 .env
-.env.*
 
 # Static files
 assets/node_modules

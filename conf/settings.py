@@ -69,7 +69,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Third party
-    # "webpack_loader",
+    "webpack_loader",
     # Local
     "conf.apps.CustomAdminConfig",
     "apps.misc",
@@ -118,19 +118,19 @@ STATICFILES_DIRS = (
     ("img", root_path("assets/img")),
 )
 
-# webpack_stats_filename = "webpack-bundle.%s.json" % ENV
-# stats_file = os.path.join(root_path("assets/bundles/"), webpack_stats_filename)
+webpack_stats_filename = "webpack-bundle.%s.json" % ENV
+stats_file = os.path.join(root_path("assets/bundles/"), webpack_stats_filename)
 
-# WEBPACK_LOADER = {
-#     "DEFAULT": {
-#         "CACHE": not DEBUG,
-#         "BUNDLE_DIR_NAME": "bundles/",  # must end with slash
-#         "STATS_FILE": stats_file,
-#         "POLL_INTERVAL": 0.1,
-#         "TIMEOUT": None,
-#         "IGNORE": [".+\.hot-update.js", ".+\.map"],
-#     }
-# }
+WEBPACK_LOADER = {
+    "DEFAULT": {
+        "CACHE": not DEBUG,
+        "BUNDLE_DIR_NAME": "bundles/",  # must end with slash
+        "STATS_FILE": stats_file,
+        "POLL_INTERVAL": 0.1,
+        "TIMEOUT": None,
+        "IGNORE": [".+\.hot-update.js", ".+\.map"],
+    }
+}
 
 USE_S3_STATIC_STORAGE = env.bool("USE_S3_STATIC_STORAGE", default=False)
 

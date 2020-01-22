@@ -1,17 +1,14 @@
-{% extends 'registration/base.html' %}
-{% load i18n %}
+{% extends 'registration/base.html' %} {% load i18n %} {% block page_title %}{%
+trans 'Log in' %}{% endblock %} {% block content %}
+<form method="post" action=".">
+  {% csrf_token %} {{ form.as_p }}
 
-{% block page_title %}{% trans 'Log in' %}{% endblock %}
+  <input type="submit" value="{% trans 'Log in' %}" />
+  <input type="hidden" name="next" value="{{ next }}" />
+</form>
 
-{% block content %}
-  <form method="post" action=".">
-    {% csrf_token %}
-    {{ form.as_p }}
-
-    <input type="submit" value="{% trans 'Log in' %}" />
-    <input type="hidden" name="next" value="{{ next }}" />
-  </form>
-
-  <p>{% trans "Forgot password" %}? <a href="{% url 'password_reset' %}">{% trans 'Reset it' %}</a>!</p>
-  <p>{% trans "Not member" %}? <a href="{% url 'registration_register' %}">{% trans 'Register' %}</a>!</p>
+<p>
+  {% trans "Forgot password" %}?
+  <a href="{% url 'password_reset' %}">{% trans 'Reset it' %}</a>!
+</p>
 {% endblock %}

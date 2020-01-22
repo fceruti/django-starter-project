@@ -4,21 +4,23 @@ An opinionated boilerplate for your Django projects.
 
 ## Tool Choices
 
-* **Database:** [PostgreSQL](https://www.postgresql.org/)
-* **Task Queue:** [Celery](http://www.celeryproject.org/) with [Redis](https://redis.io/)
-* **Testing:** [PyTest](https://docs.pytest.org/en/latest/)
-* **Logging:** [Sentry](https://sentry.io)
-* **Static File Compiler:** [Webpack](https://webpack.js.org/)
-* **JS lint:** [ESLint](https://eslint.org/)
-* **Style lint:** [Stylelint](https://github.com/stylelint/stylelint)
-* **Static File Storage:** [AWS S3](https://aws.amazon.com/s3/) or [Digital Ocean Spaces](https://www.digitalocean.com/products/spaces/)
-* **Dev Orchestration:** [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/)
+- **Package manager:** [Poetry](https://python-poetry.org/)
+- **Database:** [PostgreSQL](https://www.postgresql.org/)
+- **Task Queue:** [Celery](http://www.celeryproject.org/) with [Redis](https://redis.io/)
+- **Testing:** [PyTest](https://docs.pytest.org/en/latest/)
+- **Logging:** [Sentry](https://sentry.io)
+- **Static File Compiler:** [Webpack](https://webpack.js.org/)
+- **JS lint:** [ESLint](https://eslint.org/)
+- **Style lint:** [Stylelint](https://github.com/stylelint/stylelint)
+- **Static File Storage:** [AWS S3](https://aws.amazon.com/s3/) or [Digital Ocean Spaces](https://www.digitalocean.com/products/spaces/)
+- **Dev Orchestration:** [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/)
 
 ## Getting started
 
 This is a guide on how to use this repo and save hours of boring configuration.
 
 ### 1) Add the boilerplate
+
 Instead of running `django-admin startproject` to start your new project, clone this repo in a directory of your choosing
 
 ```bash
@@ -27,22 +29,17 @@ git clone git@github.com:fceruti/django-starter-project.git <new-directory>
 
 At this point you may either
 
-1) Start a clean git repo by removing the `.git` directory and then running `git init`.
-2) Receive patches and updates of this repo by modifying `.git/config` and switch `[remote "origin"]` for `[remote "upstream"]`, and then add your own `origin` by running `git remote add origin <your_repo>`.
+1. Start a clean git repo by removing the `.git` directory and then running `git init`.
+2. Receive patches and updates of this repo by modifying `.git/config` and switch `[remote "origin"]` for `[remote "upstream"]`, and then add your own `origin` by running `git remote add origin <your_repo>`.
 
 ### 2) Set environment variables
 
 Following the [12 Factor App Guide](https://www.12factor.net/), we will configure our app by setting the configuration variables in the environment. To do that, just create a file named `.env` in the root of the project and [django-environ](https://github.com/joke2k/django-environ) will pick it up and populate our settings.
 
-Example:
+You may use the example file as a starting point:
 
-```
-ENV=dev
-DEBUG=on
-SECRET_KEY=123
-DATABASE_URL=postgres://localhost:5432/django_db
-EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
-USE_DEBUG_TOOLBAR=on
+```bash
+cp .env.example .env
 ```
 
 ### 3) Create and migrate database
@@ -67,7 +64,7 @@ We need to override `DATABASE_URL` environment variable inside of the Docker con
 DATABASE_URL=postgres://<user>@host.docker.internal:5432/django_db
 ```
 
-* **user** is the user on your host machine that has access to postgres in this case.
+- **user** is the user on your host machine that has access to postgres in this case.
 
 Now we are ready to start the project.
 
@@ -78,21 +75,25 @@ docker-compose up
 Visit [http://127.0.0.1:8000](http://127.0.0.1:8000) and you'll see your site up and running.
 
 #### B) Run by yourself
-First of all, install [pyenv](https://github.com/pyenv/pyenv) so you can use the specified python version in `.python-version` file. Then, run `pip install pipenv` to install it's pip's successor: pipenv. Then install dependencies by running `pipenv install ...`.
 
-Then make sure you have `redis-server` running and finally on 3 separate consoles run:
+First of all, install [pyenv](https://github.com/pyenv/pyenv) so you can use the specified python version in `.python-version` file. Then, install [poetry](https://python-poetry.org/docs/), which is a package manager replacement for pip. Now install all the project's dependencies with `poetry install`.
 
-**worker**
+Make sure you have `redis-server` running and finally on 3 separate consoles run:
+
+**server**
+
 ```bash
 pipenv run worker
 ```
 
 **worker**
+
 ```bash
 pipenv run server
 ```
 
 **webpack**
+
 ```bash
 cd assets
 npm install
@@ -101,8 +102,8 @@ npm run dev
 
 Visit [http://127.0.0.1:8000](http://127.0.0.1:8000) and you'll see your site up and running.
 
-
 ## Docker commands
+
 Here are a few commands that may come in handy
 
 | Command                                                               | Description                                                   |
@@ -115,30 +116,33 @@ Here are a few commands that may come in handy
 | `docker-compose run --rm web /bin/bash`                               | Same as before but for services defined in docker-compose.yml |
 | `docker-compose run --rm web /bin/bash -c 'python manage.py migrate'` | Run a management command                                      |
 
-## Pipenv commands
+## Poetry commands
+
 These shortcuts are at your disposal:
 
 | Command                     | Shortcut for                                    |
 | --------------------------- | ----------------------------------------------- |
-| `pipenv run server`         | `pipenv run python manage.py runserver_plus`    |
-| `pipenv run tests`          | `pipenv run pytest`                             |
-| `pipenv run celery`         | `pipenv run python manage.py celery_autoreload` |
-| `pipenv run shell`          | `pipenv run python manage.py shell_plus`        |
-| `pipenv run makemigrations` | `pipenv run python manage.py makemigrations`    |
-| `pipenv run migrate`        | `pipenv run python manage.py migrate`           |
+| `poetry run tests`          | `poetry run pytest tests/`                      |
+| `poetry run server`         | `poetry run python manage.py runserver_plus`    |
+| `poetry run worker`         | `poetry run python manage.py celery_autoreload` |
+| `poetry run shell`          | `poetry run python manage.py shell_plus`        |
+| `poetry run makemigrations` | `poetry run python manage.py makemigrations`    |
+| `poetry run migrate`        | `poetry run python manage.py migrate`           |
 
 To compile your static files, you need to have npm installed and all the local dependencies (run `npm install`). Then can execute the following commands
-| Command             | Shortcut for                          |
+| Command | Shortcut for |
 | ------------------- | ------------------------------------- |
-| `npm run dev`       | `webpack --mode development --watch`  |
-| `npm run build`     | `webpack --mode production`           |
-| `npm run lint:js`   | `eslint js/** --fix`                  |
+| `npm run dev` | `webpack --mode development --watch` |
+| `npm run build` | `webpack --mode production` |
+| `npm run lint:js` | `eslint js/** --fix` |
 | `npm run lint:csss` | `stylelint scss/*.scss --syntax scss` |
 
 ### Environment variables
+
 These environment variables can be provided to configure your project.
 
 #### Django
+
 | Name                | Values                            | Default                                     | Description                                                                                                                   |
 | ------------------- | --------------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | ENV                 | dev, test, qa, prod               | prod                                        | Indicates in which environment the project is running on                                                                      |
@@ -159,12 +163,14 @@ These environment variables can be provided to configure your project.
 | MEDIA_URL           | Url                               | /media/                                     | Url from which media files are served                                                                                         |
 
 #### Celery
+
 | Name                     | Values       | Default | Description                                                                                                 |
 | ------------------------ | ------------ | ------- | ----------------------------------------------------------------------------------------------------------- |
 | CELERY_BROKER_URL        | Database url | --      | A common value for development is to use redis://cache, but it's recommended for production to use RabbitMQ |
 | CELERY_TASK_ALWAYS_EAGER | on, off      | off     | If this is True, all tasks will be executed locally by blocking until the task returns.                     |
 
 #### Django Storages
+
 [Documentation](https://django-storages.readthedocs.io/en/latest/)
 
 | Name                    | Values  | Default | Description                  |
@@ -175,26 +181,18 @@ These environment variables can be provided to configure your project.
 | AWS_STORAGE_BUCKET_NAME | str     | --      | Name of S3 bucket to be used |
 
 #### Django Debug Toolbar
+
 | Name              | Values  | Default | Description                  |
 | ----------------- | ------- | ------- | ---------------------------- |
 | USE_DEBUG_TOOLBAR | on, off | off     | Enables django debug toolbar |
 
-#### Django Registration Redux
-[Documentation](https://django-registration-redux.readthedocs.io)
-
-| Name                    | Values  | Default | Description                                                                                                  |
-| ----------------------- | ------- | ------- | ------------------------------------------------------------------------------------------------------------ |
-| ACCOUNT_ACTIVATION_DAYS | int     | 7       | How long (in days) after signup an account has in which to activate.                                         |
-| REGISTRATION_OPEN       | on, off | on      | Indicates whether registration of new accounts is currently permitted.                                       |
-| REGISTRATION_AUTO_LOGIN | on, off | on      | If this is True, your users will automatically log in when they click on the activation link in their email. |
-
 #### Logging & Sentry
+
 | Name       | Values  | Default | Description                                       |
 | ---------- | ------- | ------- | ------------------------------------------------- |
 | LOGS_ROOT  | path    | --      | Path to the directory where logs are to be stored |
 | USE_SENTRY | on, off | off     | Enables sentry                                    |
 | SENTRY_DSN | string  | --      | Private URL-like configuration                    |
-
 
 ### VSCode settings
 
@@ -202,45 +200,55 @@ Nowadays, my go-to editor is VSCode, so here's a template for `.vscode/settings.
 
 ```
 {
-    // Interpreter
-    "python.pythonPath": "<path>",
-    "python.envFile": "${workspaceFolder}/.env",
+  // Editor
+  "editor.formatOnSave": true,
 
-    // Linting
-    "python.linting.enabled": true,
-    "python.linting.pylintEnabled": false,
-    "python.linting.flake8Enabled": true,
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.pytest_cache": true
+  },
 
-    // Search
-    "search.exclude": {
-        "**/.git": true,
-        "**/.vscode": true,
-        "**/node_modules": true,
-        "**/static": true,
-        "**/media": true,
-        "**/logs": true,
-        "**/tmp": true,
-        "**/locale": true,
-    },
-    "search.showLineNumbers": true,
+  // Search
+  "search.exclude": {
+    "**/.git": true,
+    "**/.vscode": true,
+    "**/node_modules": true,
+    "**/static": true,
+    "**/media": true,
+    "**/logs": true,
+    "**/tmp": true,
+    "**/locale": true
+  },
+  "search.showLineNumbers": true,
 
-    // Eslint
-    "eslint.options": {
-        "configFile": ".eslintrc.json"
-    },
-    "eslint.nodePath": "assets/node_modules/",
-    "eslint.workingDirectories": [
-        "assets/"
-    ],
-    "eslint.autoFixOnSave": true,
+  // Python
+  "python.pythonPath": "<python_path>",
+  "python.venvPath": "<env_path>",
+  "python.envFile": "${workspaceFolder}/.env",
+  "python.jediEnabled": true,
 
-    // Stylelint
-    "css.validate": false,
-    "less.validate": false,
-    "scss.validate": false,
-    "stylelint.enable": true,
-    "stylelint.autoFixOnSave": true
+  // Linting
+  "python.linting.enabled": false,
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": false,
+  "python.formatting.provider": "black",
+
+  // Eslint
+  "eslint.options": {
+    "configFile": ".eslintrc.json"
+  },
+  "eslint.nodePath": "assets/node_modules",
+  "eslint.workingDirectories": ["assets/"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+
+  // Stylelint
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false
 }
+
 ```
 
 To fill the `python.pythonPath` run `pipenv --py` after initializing the directory's virtual environment.

@@ -6,7 +6,8 @@ logs
 media
 
 # Database files
-.sqlite3
+*.sqlite3
+*.rdb
 
 # Environment variables
 .env

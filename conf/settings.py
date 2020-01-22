@@ -4,6 +4,7 @@ import environ
 
 env = environ.Env()
 root_path = environ.Path(__file__) - 2
+env.read_env(env_file=root_path(".env"))
 
 
 # -----------------------------------------------------------------------------
@@ -68,17 +69,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Third party
-    "webpack_loader",
+    # "webpack_loader",
     # Local
     "conf.apps.CustomAdminConfig",
     "apps.misc",
     "apps.users",
 ]
-
-if ENV == "dev":
-    INSTALLED_APPS += [
-        "django_extensions",
-    ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -108,12 +104,6 @@ TEMPLATES = [
 ]
 
 # -----------------------------------------------------------------------------
-# Celery
-# -----------------------------------------------------------------------------
-CELERY_BROKER_URL = env("CELERY_BROKER_URL", default="redis://cache")
-CELERY_TASK_ALWAYS_EAGER = env("CELERY_TASK_ALWAYS_EAGER", default=False)
-
-# -----------------------------------------------------------------------------
 # Static & Media Files
 # -----------------------------------------------------------------------------
 STATIC_URL = env("STATIC_URL", default="/static/")
@@ -128,19 +118,19 @@ STATICFILES_DIRS = (
     ("img", root_path("assets/img")),
 )
 
-webpack_stats_filename = "webpack-bundle.%s.json" % ENV
-stats_file = os.path.join(root_path("assets/bundles/"), webpack_stats_filename)
+# webpack_stats_filename = "webpack-bundle.%s.json" % ENV
+# stats_file = os.path.join(root_path("assets/bundles/"), webpack_stats_filename)
 
-WEBPACK_LOADER = {
-    "DEFAULT": {
-        "CACHE": not DEBUG,
-        "BUNDLE_DIR_NAME": "bundles/",  # must end with slash
-        "STATS_FILE": stats_file,
-        "POLL_INTERVAL": 0.1,
-        "TIMEOUT": None,
-        "IGNORE": [".+\.hot-update.js", ".+\.map"],
-    }
-}
+# WEBPACK_LOADER = {
+#     "DEFAULT": {
+#         "CACHE": not DEBUG,
+#         "BUNDLE_DIR_NAME": "bundles/",  # must end with slash
+#         "STATS_FILE": stats_file,
+#         "POLL_INTERVAL": 0.1,
+#         "TIMEOUT": None,
+#         "IGNORE": [".+\.hot-update.js", ".+\.map"],
+#     }
+# }
 
 USE_S3_STATIC_STORAGE = env.bool("USE_S3_STATIC_STORAGE", default=False)
 
@@ -158,6 +148,12 @@ if USE_S3_STATIC_STORAGE:
     STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
 # -----------------------------------------------------------------------------
+# Celery
+# -----------------------------------------------------------------------------
+CELERY_BROKER_URL = env("CELERY_BROKER_URL", default="redis://cache")
+CELERY_TASK_ALWAYS_EAGER = env("CELERY_TASK_ALWAYS_EAGER", default=False)
+
+# -----------------------------------------------------------------------------
 # Django Debug Toolbar
 # -----------------------------------------------------------------------------
 USE_DEBUG_TOOLBAR = env.bool("USE_DEBUG_TOOLBAR", default=DEBUG)
@@ -167,6 +163,14 @@ if USE_DEBUG_TOOLBAR:
     INTERNAL_IPS = ["127.0.0.1"]
     MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
 
+# -----------------------------------------------------------------------------
+# Django Extensions
+# -----------------------------------------------------------------------------
+USE_DJANGO_EXTENSIONS = env.bool("USE_DJANGO_EXTENSIONS", default=False)
+if USE_DJANGO_EXTENSIONS:
+    INSTALLED_APPS += [
+        "django_extensions",
+    ]
 
 # -----------------------------------------------------------------------------
 # Logging

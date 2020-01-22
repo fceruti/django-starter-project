@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "django-starter-project"
+version = "0.1.0"
+description = "Opinionated boilerplate for Django projects."
+authors = ["Francisco Ceruti <hello@fceruti.com>"]
+license = "MIT License"
+packages = [
+    { include = "apps/**/*.py" },
+    { include = "conf/**/*.py" },
+]
+
+[tool.poetry.scripts]
+server = "manage:runserver"
+tests = "pytest"
+celery = "manage:celery_autoreload"
+migrate = "manage:migrate"
+makemigrations = "manage:makemigrations"
+shell = "python manage.py shell"
+
+
+[tool.poetry.dependencies]
+python = "^3.7"
+django = "^3.0.2"
+django-environ = "^0.4.5"
+psycopg2-binary = "^2.8.4"
+django-extensions = "^2.2.6"
+celery = "^4.4.0"
+sentry-sdk = "^0.14.1"
+django-storages = "^1.8"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.3.4"
+pytest-django = "^3.8.0"
+redis = "^3.3.11"
+pytest-env = "^0.6.2"
+black = "^19.10b0"
+django-debug-toolbar = "^2.1"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

@@ -8,6 +8,7 @@
 .vscode
 Dockerfile*
 docker-compose*
+node_modules
 assets/node_modules
 logs
 media

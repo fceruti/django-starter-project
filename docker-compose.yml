@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   web:
@@ -10,13 +10,14 @@ services:
       - .:/code
       - ./logs/web:/logs
       - ./media:/uploads
-    command: python manage.py runserver 0.0.0.0:8000
+    command: poetry run python manage.py runserver_plus 0.0.0.0:8000
     ports:
-      - "8000:8000"
+      - 8000:8000
     env_file:
       - .env
       - .env.docker
     environment:
+      - ALLOWED_HOSTS="*"
       - BROKER_URL=redis://cache
       - MEDIA_ROOT=/uploads
       - LOGS_ROOT=/logs
@@ -32,7 +33,7 @@ services:
       - .:/code
       - ./logs/worker:/logs
       - ./media:/uploads
-    command: python manage.py celery_autoreload
+    command: poetry run worker
     env_file:
       - .env
       - .env.docker

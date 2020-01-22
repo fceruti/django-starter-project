@@ -3,8 +3,8 @@
 from subprocess import check_call
 
 
-def server() -> None:
-    check_call(["python", "manage.py", "runserver_plus"])
+def server(*args) -> None:
+    check_call(["python", "manage.py", "runserver_plus", "0.0.0.0:8000"])
 
 
 def tests() -> None:

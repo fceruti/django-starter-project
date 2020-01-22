@@ -27,6 +27,6 @@ class User(base_models.AbstractBaseUser, base_models.PermissionsMixin):
         return self.email
 
 
-class Group(base_models.BaseGroup):
+class Group(base_models.Group):
     class Meta:
         proxy = True

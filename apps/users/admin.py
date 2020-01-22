@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.models import Group as BaseGroup
+from django.contrib.auth import models as base_models
 
 from . import models
 
@@ -29,8 +29,7 @@ class UserAdmin(UserAdmin):
     add_fieldsets = ("Authentication", {"fields": ("email", "password1", "password2"),})
 
 
-admin.site.unregister(models.BaseGroup)
-admin.site.unregister(models.BaseRegistrationProfile)
+admin.site.unregister(base_models.Group)
 
 
 @admin.register(models.Group)

@@ -1,9 +1,9 @@
 {
-  "extends": "stylelint-config-standard",
-  "rules": {
-    "indentation": "tab",
-    "number-leading-zero": null,
-    "string-quotes": "double",
-    "block-opening-brace-space-before": "always"
-  }
+	"extends": "stylelint-config-standard",
+	"rules": {
+		"indentation": "tab",
+		"number-leading-zero": null,
+		"string-quotes": "double",
+		"block-opening-brace-space-before": "always"
+	}
 }

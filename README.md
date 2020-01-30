@@ -169,6 +169,9 @@ These environment variables can be provided to configure your project.
 | LOGIN_REDIRECT_URL  | Url                               | /                                           | Url to redirect users after login in                                                                                          |
 | STATIC_URL          | Url                               | /static/                                    | Url from which static files are served                                                                                        |
 | MEDIA_URL           | Url                               | /media/                                     | Url from which media files are served                                                                                         |
+| STATIC_ROOT         | Directory path                    | \${project_root}/static                     | Directory where all static files will be collected to                                                                         |
+| MEDIA_ROOT          | Directory path                    | \${project_root}/media                      | Directory where all uploaded files will be stored                                                                             |
+| LOGS_ROOT           | Directory path                    | \${project_root}/logs                       | Directory where all logs will be stored                                                                                       |
 
 ### Celery
 

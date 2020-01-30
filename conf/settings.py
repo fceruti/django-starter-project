@@ -107,7 +107,7 @@ TEMPLATES = [
 # Static & Media Files
 # -----------------------------------------------------------------------------
 STATIC_URL = env("STATIC_URL", default="/static/")
-STATIC_ROOT = root_path("static")
+STATIC_ROOT = env("STATIC_ROOT", default=root_path("static"))
 
 MEDIA_URL = env("MEDIA_URL", default="/media/")
 MEDIA_ROOT = env("MEDIA_ROOT", default=root_path("media"))

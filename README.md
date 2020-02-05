@@ -236,11 +236,11 @@ Nowadays, my go-to editor is VSCode, so here's a template for `.vscode/settings.
   "python.pythonPath": "<python_path>",
   "python.venvPath": "<env_path>",
   "python.envFile": "${workspaceFolder}/.env",
-  "python.jediEnabled": true,
+  "python.jediEnabled": false,
 
   // Linting
-  "python.linting.enabled": false,
-  "python.linting.pylintEnabled": false,
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
   "python.linting.flake8Enabled": false,
   "python.formatting.provider": "black",
 

@@ -216,7 +216,8 @@ Nowadays, my go-to editor is VSCode, so here's a template for `.vscode/settings.
 
   "files.exclude": {
     "**/__pycache__": true,
-    "**/.pytest_cache": true
+    "**/.pytest_cache": true,
+    "**/*.egg-info": true
   },
 
   // Search

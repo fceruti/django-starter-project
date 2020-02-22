@@ -51,7 +51,7 @@ I'll call this database `django_db` for the purposes of this guide, but you can 
 Now run
 
 ```bash
-pipenv run migrate
+poetry run migrate
 ```
 
 ### 4) Run the project
@@ -233,7 +233,6 @@ Nowadays, my go-to editor is VSCode, so here's a template for `.vscode/settings.
   "search.showLineNumbers": true,
 
   // Python
-  "python.pythonPath": "<python_path>",
   "python.venvPath": "<env_path>",
   "python.envFile": "${workspaceFolder}/.env",
   "python.jediEnabled": false,
@@ -262,4 +261,4 @@ Nowadays, my go-to editor is VSCode, so here's a template for `.vscode/settings.
 
 ```
 
-To fill the `python.pythonPath` run `pipenv --py` after initializing the directory's virtual environment.
+To fill the `python.venvPath` run `poetry show -v` to see the path to your virtual environment.

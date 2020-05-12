@@ -26,6 +26,8 @@ django-extensions = "^2.2.6"
 celery = "^4.4.0"
 sentry-sdk = "^0.14.1"
 django-storages = "^1.8"
+django-webpack-loader = "^0.6.0"
+Werkzeug = "^0.16.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.3.4"
@@ -34,8 +36,6 @@ redis = "^3.3.11"
 pytest-env = "^0.6.2"
 black = "^19.10b0"
 django-debug-toolbar = "^2.1"
-django-webpack-loader = "^0.6.0"
-Werkzeug = "^0.16.0"
 pylint = "^2.5.0"
 pylint-django = "^2.0.15"
 

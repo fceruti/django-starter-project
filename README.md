@@ -241,8 +241,14 @@ Nowadays, my go-to editor is VSCode, so here's a template for `.vscode/settings.
   // Linting
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
-  "python.linting.flake8Enabled": false,
+  "python.linting.flake8Enabled": true,
   "python.formatting.provider": "black",
+  "python.linting.pylintArgs": [
+    "--load-plugins",
+    "pylint_django",
+    "--rcfile",
+    "setup.cfg"
+  ],
 
   // Eslint
   "eslint.options": {

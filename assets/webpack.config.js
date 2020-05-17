@@ -7,43 +7,51 @@ const resolve = path.resolve.bind(path, __dirname);
 
 module.exports = (env, argv) => {
 	let output;
-	let bundleTrackerPlugin;
 	let extractCssPlugin;
-	let fileLoaderPath;
+	let fileLoaderName;
+
+	switch (env) {
+		case "prod":
+			publicPath = "https://example.com/static/bundles/prod/";
+			outputPath = resolve("bundles/prod");
+			break;
+		case "stg":
+			publicPath = "https://staging.example.com/static/bundles/stg/";
+			outputPath = resolve("bundles/stg");
+			break;
+		case "dev":
+			publicPath = "http://127.0.0.1:8000/static/bundles/dev/";
+			outputPath = resolve("bundles/dev");
+			break;
+	}
 
 	switch (argv.mode) {
 		case "production":
 			output = {
-				path: resolve("bundles/"),
+				path: outputPath,
 				filename: "[chunkhash]/[name].js",
 				chunkFilename: "[chunkhash]/[name].[id].js",
-				publicPath: "https://example.com/static/bundles/"
+				publicPath: publicPath
 			};
-			bundleTrackerPlugin = new BundleTracker({
-				filename: "bundles/webpack-bundle.prod.json"
-			});
 			extractCssPlugin = new MiniCssExtractPlugin({
 				filename: "[chunkhash]/[name].css",
 				chunkFilename: "[chunkhash]/[name].[id].css"
 			});
-			fileLoaderPath = "file-loader?name=[name].[hash].[ext]";
+			fileLoaderName = "[path][name].[contenthash].[ext]";
 			break;
 
 		case "development":
 			output = {
-				path: resolve("bundles/"),
-				filename: "dev/[name].js",
-				chunkFilename: "dev/[name].js",
-				publicPath: "http://127.0.0.1:8000/static/bundles/"
+				path: outputPath,
+				filename: "[name].js",
+				chunkFilename: "[name].js",
+				publicPath: publicPath
 			};
-			bundleTrackerPlugin = new BundleTracker({
-				filename: "bundles/webpack-bundle.dev.json"
-			});
 			extractCssPlugin = new MiniCssExtractPlugin({
-				filename: "dev/[name].css",
-				chunkFilename: "dev/[name].[id].css"
+				filename: "[name].css",
+				chunkFilename: "[name].[id].css"
 			});
-			fileLoaderPath = "file-loader?name=[name].[ext]";
+			fileLoaderName = "[path][name].[ext]";
 			break;
 		default:
 			break;
@@ -85,7 +93,8 @@ module.exports = (env, argv) => {
 					test: /\.(eot|otf|ttf|woff|woff2)(\?v=[0-9.]+)?$/,
 					loader: "file-loader",
 					options: {
-						outputPath: "fonts"
+						outputPath: "fonts",
+						name: fileLoaderName
 					}
 				},
 				// Images
@@ -93,12 +102,18 @@ module.exports = (env, argv) => {
 					test: /\.(png|svg|jpg)(\?v=[0-9.]+)?$/,
 					loader: "file-loader",
 					options: {
-						outputPath: "images"
+						outputPath: "images",
+						name: fileLoaderName
 					}
 				}
 			]
 		},
-		plugins: [bundleTrackerPlugin, extractCssPlugin],
+		plugins: [
+			new BundleTracker({
+				filename: `bundles/webpack-bundle.${env}.json`
+			}),
+			extractCssPlugin
+		],
 		devtool: "source-map"
 	};
 };

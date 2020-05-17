@@ -4,8 +4,9 @@
 	"description": "Asset files for django project.",
 	"main": "webpack.config.js",
 	"scripts": {
-		"dev": "webpack --mode development --watch",
-		"build": "webpack --mode production",
+		"dev": "webpack --mode development --env dev --watch",
+		"build_stg": "webpack --mode production --env stg",
+		"build_prod": "webpack --mode production --env prod",
 		"lint:js": "eslint js/** --fix",
 		"lint:scss": "stylelint scss/*.scss --syntax scss --fix"
 	},

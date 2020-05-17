@@ -124,12 +124,13 @@ These shortcuts are at your disposal:
 | `poetry run migrate`        | `poetry run python manage.py migrate`           |
 
 To compile your static files, you need to have npm installed and all the local dependencies (run `npm install`). Then can execute the following commands
-| Command | Shortcut for |
-| ------------------- | ------------------------------------- |
-| `npm run dev` | `webpack --mode development --watch` |
-| `npm run build` | `webpack --mode production` |
-| `npm run lint:js` | `eslint js/** --fix` |
-| `npm run lint:csss` | `stylelint scss/*.scss --syntax scss` |
+| Command              | Shortcut for                                  |
+| -------------------- | --------------------------------------------- |
+| `npm run dev`        | `webpack --mode development --env dev--watch` |
+| `npm run build_stg`  | `webpack --mode production --env stg`         |
+| `npm run build_prod` | `webpack --mode production --env prod`        |
+| `npm run lint:js`    | `eslint js/** --fix`                          |
+| `npm run lint:csss`  | `stylelint scss/*.scss --syntax scss`         |
 
 ## 🎛 Environment variables
 

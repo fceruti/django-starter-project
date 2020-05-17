@@ -23,7 +23,7 @@ class KeyModel(TimestampedModel):
     def short_key(self):
         return self.key[:8]
 
-    def save(self, *args, **kwargs):
+    def save(self, **kwargs):
         if not self.key:
             while True:
                 new_key = str(uuid.uuid4())
@@ -33,4 +33,4 @@ class KeyModel(TimestampedModel):
                 except self.__class__.DoesNotExist:
                     self.key = new_key
                     break
-        super().save(*args, **kwargs)
+        super().save(**kwargs)

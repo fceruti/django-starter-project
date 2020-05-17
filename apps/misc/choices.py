@@ -1,13 +1,10 @@
-from collections import Callable
-
-
 class ChoicesMeta(type):
-    def __getattribute__(self, name):
+    def __getattribute__(cls, name):
         if name and not name.startswith("_"):
             try:
-                value = self.__dict__[name]
-                if not isinstance(value, Callable):
-                    if type(value) is tuple:
+                value = cls.__dict__[name]
+                if not callable(value):
+                    if isinstance(value, tuple):
                         return value[0]
                     else:
                         return value
@@ -48,7 +45,7 @@ class Choices(metaclass=ChoicesMeta):
             if attr_name in ["keys", "choices"]:
                 continue
             value = cls.__dict__[attr_name]
-            if not isinstance(value, Callable):
+            if not callable(value):
                 if isinstance(value, tuple):
                     yield value
                 else:

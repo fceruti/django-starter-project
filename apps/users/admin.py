@@ -1,12 +1,12 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import models as base_models
+from django.contrib.auth.admin import UserAdmin as CoreUserAdmin
 
 from . import models
 
 
 @admin.register(models.User)
-class UserAdmin(UserAdmin):
+class UserAdmin(CoreUserAdmin):
     ordering = ["id"]
     list_display = (
         "id",

@@ -25,9 +25,7 @@ This is a guide on how to use this repo and save hours of boring configuration.
 
 Instead of running `django-admin startproject` to start your new project, clone this repo in a directory of your choosing
 
-```bash
-git clone git@github.com:fceruti/django-starter-project.git <new-directory>
-```
+    git clone git@github.com:fceruti/django-starter-project.git <new-directory>
 
 At this point you may either
 
@@ -40,9 +38,7 @@ Following the [12 Factor App Guide](https://www.12factor.net/), we will configur
 
 You may use the example file as a starting point:
 
-```bash
-cp .env.example .env
-```
+    cp .env.example .env
 
 ### 3) Create and migrate database
 
@@ -50,9 +46,7 @@ I'll call this database `django_db` for the purposes of this guide, but you can 
 
 Now run
 
-```bash
-poetry run migrate
-```
+    poetry run migrate
 
 ### 4) Run the project
 
@@ -70,9 +64,8 @@ DATABASE_URL=postgres://<user>@host.docker.internal:5432/django_db
 
 Now we are ready to start the project.
 
-```bash
-docker-compose up
-```
+    docker-compose up
+
 
 Visit [http://127.0.0.1:8000](http://127.0.0.1:8000) and you'll see your site up and running 🧘‍♀️
 
@@ -80,31 +73,24 @@ Visit [http://127.0.0.1:8000](http://127.0.0.1:8000) and you'll see your site up
 
 First of all, install [pyenv](https://github.com/pyenv/pyenv) so you can use the specified python version in `.python-version` file. Then, install [poetry](https://python-poetry.org/docs/), which is a package manager replacement for pip. Now install all the project's dependencies with
 
-```bash
-poetry install
-```
+    poetry install
 
 Make sure you have `redis-server` running and finally on 3 separate consoles run:
 
 **server**
 
-```bash
-poetry run worker
-```
+    poetry run worker
 
 **worker**
 
-```bash
-poetry run server
-```
+    poetry run server
+
 
 **webpack**
 
-```bash
-cd assets
-npm install
-npm run dev
-```
+    cd assets
+    npm install
+    npm run dev
 
 Visit [http://127.0.0.1:8000](http://127.0.0.1:8000) and you'll see your site up and running 🧘‍♀️
 
@@ -209,63 +195,60 @@ These environment variables can be provided to configure your project.
 
 Nowadays, my go-to editor is VSCode, so here's a template for `.vscode/settings.json`:
 
-```
-{
-  // Editor
-  "editor.formatOnSave": true,
+    {
+      // Editor
+      "editor.formatOnSave": true,
 
-  "files.exclude": {
-    "**/__pycache__": true,
-    "**/.pytest_cache": true,
-    "**/*.egg-info": true
-  },
+      "files.exclude": {
+        "**/__pycache__": true,
+        "**/.pytest_cache": true,
+        "**/*.egg-info": true
+      },
 
-  // Search
-  "search.exclude": {
-    "**/.git": true,
-    "**/.vscode": true,
-    "**/node_modules": true,
-    "**/static": true,
-    "**/media": true,
-    "**/logs": true,
-    "**/tmp": true,
-    "**/locale": true
-  },
-  "search.showLineNumbers": true,
+      // Search
+      "search.exclude": {
+        "**/.git": true,
+        "**/.vscode": true,
+        "**/node_modules": true,
+        "**/static": true,
+        "**/media": true,
+        "**/logs": true,
+        "**/tmp": true,
+        "**/locale": true
+      },
+      "search.showLineNumbers": true,
 
-  // Python
-  "python.venvPath": "<env_path>",
-  "python.envFile": "${workspaceFolder}/.env",
-  "python.jediEnabled": false,
+      // Python
+      "python.venvPath": "<env_path>",
+      "python.envFile": "${workspaceFolder}/.env",
+      "python.jediEnabled": false,
 
-  // Linting
-  "python.linting.enabled": true,
-  "python.linting.pylintEnabled": true,
-  "python.linting.flake8Enabled": true,
-  "python.formatting.provider": "black",
-  "python.linting.pylintArgs": [
-    "--load-plugins",
-    "pylint_django",
-    "--rcfile",
-    "setup.cfg"
-  ],
+      // Linting
+      "python.linting.enabled": true,
+      "python.linting.pylintEnabled": true,
+      "python.linting.flake8Enabled": true,
+      "python.formatting.provider": "black",
+      "python.linting.pylintArgs": [
+        "--load-plugins",
+        "pylint_django",
+        "--rcfile",
+        "setup.cfg"
+      ],
 
-  // Eslint
-  "eslint.options": {
-    "configFile": ".eslintrc.json"
-  },
-  "eslint.nodePath": "assets/node_modules",
-  "eslint.workingDirectories": ["assets/"],
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
+      // Eslint
+      "eslint.options": {
+        "configFile": ".eslintrc.json"
+      },
+      "eslint.nodePath": "assets/node_modules",
+      "eslint.workingDirectories": ["assets/"],
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+      },
 
-  // Stylelint
-  "css.validate": false,
-  "less.validate": false,
-  "scss.validate": false
-}
-
-```
+      // Stylelint
+      "css.validate": false,
+      "less.validate": false,
+      "scss.validate": false
+    }
 
 To fill the `python.venvPath` run `poetry show -v` to see the path to your virtual environment.

@@ -128,7 +128,7 @@ WEBPACK_LOADER = {
         "STATS_FILE": stats_file,
         "POLL_INTERVAL": 0.1,
         "TIMEOUT": None,
-        "IGNORE": [".+\.hot-update.js", ".+\.map"],
+        "IGNORE": [r".+\.hot-update.js", r".+\.map"],
     }
 }
 

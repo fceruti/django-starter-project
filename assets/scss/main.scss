@@ -1,8 +1,7 @@
-// Configuration
 @import "variables";
-@import "colors";
-// Libs
-@import "reset";
-// Custom
+@import "libs/reset";
 @import "structure";
-@import "typography";
+
+body {
+  color: $color;
+}

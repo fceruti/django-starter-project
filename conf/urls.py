@@ -5,7 +5,6 @@ from django.urls import include, path
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    path("", include("apps.misc.hello_universe_urls")),
     path("", include("apps.users.urls.auth")),
     path("admin/", admin.site.urls),
 ]
@@ -26,4 +25,3 @@ if settings.ENV == "dev":
         path("error/404/", TemplateView.as_view(template_name="404.html")),
         path("error/500/", TemplateView.as_view(template_name="500.html")),
     ]
-

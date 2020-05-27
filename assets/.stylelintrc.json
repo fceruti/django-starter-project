@@ -4,6 +4,12 @@
     "indentation": 2,
     "number-leading-zero": null,
     "string-quotes": "double",
-    "block-opening-brace-space-before": "always"
+    "block-opening-brace-space-before": "always",
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": ["function", "if", "each", "include", "mixin"]
+      }
+    ]
   }
 }

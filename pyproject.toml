@@ -18,7 +18,7 @@ makemigrations = "scripts:makemigrations"
 shell = "scripts:shell"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.6"
 django = "^3.0.2"
 django-environ = "^0.4.5"
 psycopg2-binary = "^2.8.4"

@@ -1,45 +1,45 @@
 [tool.poetry]
-name = "django-starter-project"
-version = "0.1.0"
-description = "Opinionated boilerplate for Django projects."
 authors = ["Francisco Ceruti <hello@fceruti.com>"]
+description = "Opinionated boilerplate for Django projects."
 license = "MIT License"
+name = "django-starter-project"
 packages = [
-    { include = "apps/**/*.py" },
-    { include = "conf/**/*.py" },
+  {include = "apps/**/*.py"},
+  {include = "conf/**/*.py"},
 ]
+version = "0.1.0"
 
 [tool.poetry.scripts]
-tests = "scripts:tests"
-server = "scripts:server"
-worker = "scripts:worker"
-migrate = "scripts:migrate"
 makemigrations = "scripts:makemigrations"
+migrate = "scripts:migrate"
+server = "scripts:server"
 shell = "scripts:shell"
+tests = "scripts:tests"
+worker = "scripts:worker"
 
 [tool.poetry.dependencies]
-python = "^3.6"
-django = ">=2.2"
-django-environ = "^0.4.5"
-psycopg2-binary = "^2.8.4"
-django-extensions = "^2.2.6"
 celery = "^4.4.0"
-redis = "^3.3.11"
-sentry-sdk = "^0.14.1"
+django = ">=2.2.13"
+django-environ = "^0.4.5"
+django-extensions = "^2.2.6"
 django-storages = "^1.8"
 django-webpack-loader = "^0.6.0"
+psycopg2-binary = "^2.8.4"
+python = "^3.6"
+redis = "^3.3.11"
+sentry-sdk = "^0.14.1"
 
 [tool.poetry.dev-dependencies]
+Werkzeug = "^0.16.0"
 black = "^19.10b0"
+django-debug-toolbar = "^2.1"
+flake8 = "^3.8.1"
+pylint = "^2.5.0"
+pylint-django = "^2.0.15"
 pytest = "^5.3.4"
 pytest-django = "^3.8.0"
 pytest-env = "^0.6.2"
-pylint = "^2.5.0"
-pylint-django = "^2.0.15"
-django-debug-toolbar = "^2.1"
-Werkzeug = "^0.16.0"
-flake8 = "^3.8.1"
 
 [build-system]
-requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
+requires = ["poetry>=0.12"]

@@ -32,7 +32,7 @@ sentry-sdk = "^0.14.1"
 [tool.poetry.dev-dependencies]
 Werkzeug = "^0.16.0"
 black = "^19.10b0"
-django-debug-toolbar = "^2.1"
+django-debug-toolbar = "^2.2"
 flake8 = "^3.8.1"
 pylint = "^2.5.0"
 pylint-django = "^2.0.15"

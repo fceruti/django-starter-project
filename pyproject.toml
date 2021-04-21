@@ -7,7 +7,7 @@ packages = [
   {include = "apps/**/*.py"},
   {include = "conf/**/*.py"},
 ]
-version = "0.1.0"
+version = "0.2.0"
 
 [tool.poetry.scripts]
 makemigrations = "scripts:makemigrations"
